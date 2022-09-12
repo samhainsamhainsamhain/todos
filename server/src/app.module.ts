@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './typeorm/entities/User';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -11,7 +12,7 @@ import { UsersModule } from './users/users.module';
       username: 'admin',
       password: 'admin',
       database: 'todonet_mysql',
-      entities: [],
+      entities: [User],
       synchronize: true,
     }),
     UsersModule,
