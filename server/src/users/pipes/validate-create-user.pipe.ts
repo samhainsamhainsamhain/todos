@@ -12,8 +12,11 @@ export class ValidateCreateUserPipe implements PipeTransform {
   transform(value: CreateUserDto, metadata: ArgumentMetadata) {
     if (value.confirmPassword !== value.password)
       throw new HttpException(
-        `Confirmation Password doesn't match Password`,
-        HttpStatus.FORBIDDEN,
+        {
+          statusCode: 400,
+          message: `Confirmation Password doesn't match Password`,
+        },
+        HttpStatus.BAD_REQUEST,
       );
 
     return value;
