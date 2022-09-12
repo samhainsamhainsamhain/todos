@@ -3,28 +3,26 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Todos } from './Todo';
-import { User } from './User';
+import { TodoList } from './TodoList';
 
 @Entity({
-  name: 'todo_lists',
+  name: 'todos',
 })
-export class TodoList {
+export class Todos {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
   @Column()
   title: string;
 
+  @Column()
+  description: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @ManyToOne(() => User, (user) => user.todoLists)
-  user: User;
-
-  @OneToMany(() => Todos, (todos) => todos.todoList)
-  todos: Todos[];
+  @ManyToOne(() => TodoList, (todoList) => todoList.todos)
+  todoList: TodoList;
 }
