@@ -17,7 +17,10 @@ export class UsersController {
   createUser(@Body(ValidateCreateUserPipe) createUserDto: CreateUserDto) {
     const { confirmPassword, ...userDetails } = createUserDto;
     this.userService.createUser(userDetails);
-    return;
+    return {
+      statusCode: 201,
+      message: `${userDetails.username} is successfully registered!`,
+    };
   }
 
   @Put()
