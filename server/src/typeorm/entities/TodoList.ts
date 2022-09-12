@@ -2,27 +2,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TodoList } from './TodoList';
+import { User } from './User';
 
 @Entity({
-  name: 'users',
+  name: 'todo_lists',
 })
-export class User {
+export class TodoList {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column({ unique: true })
-  username: string;
-
   @Column()
-  password: string;
+  title: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @OneToMany(() => TodoList, (todoList) => todoList.user)
-  todoLists: TodoList[];
+  @ManyToOne(() => User, (user) => user.todoLists)
+  user: User;
 }
