@@ -1,5 +1,17 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateUserDto } from '../dtos/CreateUser.dto';
+import { UpdateUserDto } from '../dtos/UpdateUser.dto';
 import { ValidateCreateUserPipe } from '../pipes/validate-create-user.pipe';
 import { UsersService } from '../services/users.service';
 
@@ -14,6 +26,7 @@ export class UsersController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   createUser(@Body(ValidateCreateUserPipe) createUserDto: CreateUserDto) {
     const { confirmPassword, ...userDetails } = createUserDto;
     this.userService.createUser(userDetails);
@@ -23,9 +36,24 @@ export class UsersController {
     };
   }
 
-  @Put()
-  updateUser() {}
+  @Put(':id')
+  async updateUserById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    await this.userService.updateUser(id, updateUserDto);
+    return {
+      statusCode: 201,
+      message: `${updateUserDto.username} details is successfully updated!`,
+    };
+  }
 
-  @Delete()
-  deleteUser() {}
+  @Delete(':id')
+  async deleteUserById(@Param('id', ParseIntPipe) id: number) {
+    await this.userService.deleteUser(id);
+    return {
+      statusCode: 200,
+      message: `account with ID ${id} is successfully deleted!`,
+    };
+  }
 }
