@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Todos } from './typeorm/entities/Todo';
-import { TodoList } from './typeorm/entities/TodoList';
-import { User } from './typeorm/entities/User';
+
 import { UsersModule } from './users/users.module';
+import { TodoListModule } from './todo-list/todo-list.module';
+import { TodosModule } from './todos/todos.module';
+
+import { User } from './typeorm/entities/User';
+import { TodoList } from './typeorm/entities/TodoList';
+import { Todos } from './typeorm/entities/Todo';
 
 @Module({
   imports: [
@@ -18,6 +22,8 @@ import { UsersModule } from './users/users.module';
       synchronize: true,
     }),
     UsersModule,
+    TodoListModule,
+    TodosModule,
   ],
   controllers: [],
   providers: [],
