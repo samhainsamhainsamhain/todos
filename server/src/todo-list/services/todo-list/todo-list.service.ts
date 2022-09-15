@@ -54,7 +54,7 @@ export class TodoListService {
 
     if (!user || !todoList)
       throw new HttpException(
-        'User or todo list not found.',
+        'User or list not found.',
         HttpStatus.BAD_REQUEST,
       );
 

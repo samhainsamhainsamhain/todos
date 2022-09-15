@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Post,
   Put,
@@ -10,11 +11,11 @@ import {
 import { CreateTodoListDto } from 'src/todo-list/dto/todoList/CreateTodoList.dto';
 import { TodoListService } from 'src/todo-list/services/todo-list/todo-list.service';
 
-@Controller()
+@Controller('lists')
 export class TodoListController {
   constructor(private todoListService: TodoListService) {}
-  @Get('users/:userId/lists')
-  async fetchTodoListsByUserId(@Param('userId') userId: number) {
+  @Get()
+  async fetchTodoListsByUserId(@Headers('userId') userId: number) {
     const todoLists = await this.todoListService.fetchTodoLists(userId);
     return {
       message: `you are looking todoLists by id: ${userId}`,
@@ -22,9 +23,9 @@ export class TodoListController {
     };
   }
 
-  @Post('users/:userId/lists')
+  @Post()
   createTodoList(
-    @Param('userId') userId: number,
+    @Headers('userId') userId: number,
     @Body() createTodoListDto: CreateTodoListDto,
   ) {
     this.todoListService.createTodoList(userId, createTodoListDto);
@@ -34,9 +35,9 @@ export class TodoListController {
     };
   }
 
-  @Put('users/:userId/lists/:id')
+  @Put(':id')
   updateTodoList(
-    @Param('userId') userId: number,
+    @Headers('userId') userId: number,
     @Param('id') id: number,
     @Body() updateTodoListDto: CreateTodoListDto,
   ) {
@@ -47,7 +48,7 @@ export class TodoListController {
     };
   }
 
-  @Delete('users/:userId/lists/:id')
+  @Delete(':id')
   deleteTodoList(@Param('id') id: number) {
     this.todoListService.deleteTodoList(id);
   }
