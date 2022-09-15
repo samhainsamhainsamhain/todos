@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreateTodoListDto } from 'src/todo-list/dto/todoList/CreateTodoList.dto';
 import { UpdateTodoListDto } from 'src/todo-list/dto/todoList/UpdateTodoList.dto';
+
 import { TodoList } from 'src/typeorm/entities/TodoList';
 import { User } from 'src/typeorm/entities/User';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoListService {

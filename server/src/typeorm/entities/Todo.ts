@@ -17,7 +17,7 @@ export class Todos {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ default: null })
   description: string;
 
   @CreateDateColumn({ type: 'timestamp' })
