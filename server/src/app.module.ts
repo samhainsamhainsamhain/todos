@@ -5,11 +5,13 @@ import { UsersModule } from './users/users.module';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { TodosModule } from './todos/todos.module';
 
+import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+
 import { User } from './typeorm/entities/User';
 import { TodoList } from './typeorm/entities/TodoList';
 import { Todos } from './typeorm/entities/Todo';
-import { AuthModule } from './auth/auth.module';
-import { PassportModule } from '@nestjs/passport';
+import { Session } from './typeorm/entities/Session';
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { PassportModule } from '@nestjs/passport';
       username: 'admin',
       password: 'admin',
       database: 'todonet_mysql',
-      entities: [User, TodoList, Todos],
+      entities: [User, TodoList, Todos, Session],
       synchronize: true,
     }),
     UsersModule,

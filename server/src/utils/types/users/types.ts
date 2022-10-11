@@ -1,3 +1,4 @@
+// export type User
 export type CreateUserParams = {
   username: string;
   password: string;
@@ -8,6 +9,7 @@ export type UpdateUserParams = {
   password: string;
 };
 
-export type FindOneUserParams = {
+export type FindOneUserParams = Partial<{
   username: string;
-};
+  id: number;
+}>;
