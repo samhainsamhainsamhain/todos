@@ -11,8 +11,9 @@ import {
 
 import { CreateTodoDto } from 'src/todos/dto/CreateTodo.dto';
 import { TodosService } from 'src/todos/services/todos/todos.service';
+import { Routes } from 'src/utils/constants';
 
-@Controller('todos')
+@Controller(Routes.TODOS)
 export class TodosController {
   constructor(private todosService: TodosService) {}
 
