@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/User';
+import { hashPassword } from 'src/utils/helpers';
 import {
   CreateUserParams,
   FindOneUserParams,
@@ -22,8 +23,15 @@ export class UsersService {
     return this.userRepository.findOneBy({ username: userDetails.username });
   }
 
-  createUser(userDetails: CreateUserParams) {
-    const newUser = this.userRepository.create({ ...userDetails });
+  async createUser(userDetails: CreateUserParams) {
+    const existingUser = await this.userRepository.findOneBy({
+      username: userDetails.username,
+    });
+    if (existingUser) {
+      throw new HttpException('User already exists', HttpStatus.CONFLICT);
+    }
+    const password = await hashPassword(userDetails.password);
+    const newUser = this.userRepository.create({ ...userDetails, password });
     return this.userRepository.save(newUser);
   }
 
