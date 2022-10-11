@@ -1,9 +1,10 @@
-import { Controller, Get, Inject, Post } from '@nestjs/common';
-import { IAuthService } from './auth';
+import { Controller, Get, Post } from '@nestjs/common';
+import { Routes } from 'src/utils/constants';
+import { AuthService } from './auth.service';
 
-@Controller('auth')
+@Controller(Routes.AUTH)
 export class AuthController {
-  constructor(@Inject('AUTH_SERVICE') private authService: IAuthService) {}
+  constructor(private authService: AuthService) {}
 
   @Post('login')
   login() {}
