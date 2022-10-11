@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/User';
 import {
   CreateUserParams,
+  FindOneUserParams,
   UpdateUserParams,
 } from 'src/utils/types/users/types';
 import { Repository } from 'typeorm';
@@ -15,6 +16,10 @@ export class UsersService {
 
   fetchUsers() {
     return this.userRepository.find();
+  }
+
+  findOneUser(userDetails: FindOneUserParams) {
+    return this.userRepository.findOneBy({ username: userDetails.username });
   }
 
   createUser(userDetails: CreateUserParams) {

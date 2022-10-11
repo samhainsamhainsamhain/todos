@@ -7,3 +7,7 @@ export type UpdateUserParams = {
   username: string;
   password: string;
 };
+
+export type FindOneUserParams = {
+  username: string;
+};
