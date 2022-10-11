@@ -9,9 +9,11 @@ import { User } from './typeorm/entities/User';
 import { TodoList } from './typeorm/entities/TodoList';
 import { Todos } from './typeorm/entities/Todo';
 import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
+    PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
