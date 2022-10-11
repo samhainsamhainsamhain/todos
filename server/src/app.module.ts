@@ -8,6 +8,7 @@ import { TodosModule } from './todos/todos.module';
 import { User } from './typeorm/entities/User';
 import { TodoList } from './typeorm/entities/TodoList';
 import { Todos } from './typeorm/entities/Todo';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Todos } from './typeorm/entities/Todo';
     UsersModule,
     TodoListModule,
     TodosModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
