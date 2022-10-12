@@ -8,6 +8,7 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   const { PORT, COOKIE_SECRET } = process.env;
+  console.log(COOKIE_SECRET);
 
   const app = await NestFactory.create(AppModule);
 
@@ -23,9 +24,11 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors({ origin: ['http://localhost:3000'], credentials: true });
+
   app.use(
     session({
-      secret: COOKIE_SECRET, // move cookie secret to .env
+      secret: 'COOKIE_SECRET', // move cookie secret to .env
       saveUninitialized: false,
       resave: false,
       cookie: {
@@ -38,6 +41,6 @@ async function bootstrap() {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  await app.listen(PORT);
+  await app.listen(3001);
 }
 bootstrap();

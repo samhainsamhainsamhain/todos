@@ -13,6 +13,7 @@ export class AuthService {
     });
     if (!user)
       throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
-    return compareHash(userDetails.password, user.password);
+    const isPasswordValid = compareHash(userDetails.password, user.password);
+    return isPasswordValid ? user : null;
   }
 }
