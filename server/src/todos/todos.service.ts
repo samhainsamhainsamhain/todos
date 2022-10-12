@@ -2,8 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateTodoDto } from 'src/todos/dto/CreateTodo.dto';
-import { UpdateTodoDto } from 'src/todos/dto/UpdateTodo.dto';
+import { CreateTodoDto, UpdateTodoDto } from 'src/todos/todo.dto';
 
 import { Todos } from 'src/typeorm/entities/Todo';
 import { TodoList } from 'src/typeorm/entities/TodoList';

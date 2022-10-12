@@ -8,8 +8,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateTodoListDto } from 'src/todo-list/dto/todoList/CreateTodoList.dto';
-import { TodoListService } from 'src/todo-list/services/todo-list/todo-list.service';
+import { CreateTodoListDto } from 'src/todo-list/todoList.dto';
+import { TodoListService } from 'src/todo-list/todo-list.service';
 import { Routes } from 'src/utils/constants';
 
 @Controller(Routes.LISTS)

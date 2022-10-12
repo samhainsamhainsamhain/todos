@@ -6,3 +6,10 @@ export class CreateTodoDto {
 
   description: string;
 }
+
+export class UpdateTodoDto {
+  @IsNotEmpty()
+  title: string;
+
+  description: string;
+}

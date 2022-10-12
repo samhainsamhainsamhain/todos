@@ -9,8 +9,8 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CreateTodoDto } from 'src/todos/dto/CreateTodo.dto';
-import { TodosService } from 'src/todos/services/todos/todos.service';
+import { CreateTodoDto } from 'src/todos/todo.dto';
+import { TodosService } from 'src/todos/todos.service';
 import { Routes } from 'src/utils/constants';
 
 @Controller(Routes.TODOS)

@@ -11,10 +11,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Routes } from 'src/utils/constants';
-import { CreateUserDto } from '../dto/CreateUser.dto';
-import { UpdateUserDto } from '../dto/UpdateUser.dto';
-import { ValidateCreateUserPipe } from '../pipes/validate-create-user.pipe';
-import { UsersService } from '../services/users.service';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
+import { ValidateCreateUserPipe } from './validate-create-user.pipe';
+import { UsersService } from './users.service';
 
 @Controller(Routes.USERS)
 export class UsersController {
