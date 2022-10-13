@@ -1,16 +1,23 @@
 import React, { FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { postRegisterUser } from '../../api/api';
+import { CreateUserParams } from '../../types/User';
 
 interface IRegistration {
   setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Registration = ({ setHasAccount }: IRegistration) => {
-  const { register, handleSubmit, formState } = useForm({ mode: 'onChange' });
+  const { register, handleSubmit, formState } = useForm<CreateUserParams>({
+    mode: 'onChange',
+  });
 
-  function signUpUserHandler(data: any) {
-    postRegisterUser({ ...data });
+  async function signUpUserHandler(data: CreateUserParams) {
+    try {
+      await postRegisterUser({ ...data });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
