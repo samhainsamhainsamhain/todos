@@ -1,10 +1,19 @@
 import React, { FormEvent } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface ILogin {
   setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Login = ({ setHasAccount }: ILogin) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data: any) => {};
+
   function signInUserHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
@@ -12,11 +21,15 @@ const Login = ({ setHasAccount }: ILogin) => {
   return (
     <div>
       <h2>Please Sign In!</h2>
-      <form onSubmit={(e) => signInUserHandler(e)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Username</label>
-        <input id="username" />
+        <input id="username" {...register('username', { required: true })} />
         <label htmlFor="password">Password</label>
-        <input id="password" />
+        <input
+          type="password"
+          id="password"
+          {...register('password', { required: true })}
+        />
         <button type="button">Sign In</button>
       </form>
       <div>
