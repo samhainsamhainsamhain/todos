@@ -15,6 +15,10 @@ import { Session } from './typeorm/entities/Session';
 
 @Module({
   imports: [
+    AuthModule,
+    UsersModule,
+    TodoListModule,
+    TodosModule,
     PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -26,10 +30,6 @@ import { Session } from './typeorm/entities/Session';
       entities: [User, TodoList, Todos, Session],
       synchronize: true,
     }),
-    UsersModule,
-    TodoListModule,
-    TodosModule,
-    AuthModule,
   ],
   controllers: [],
   providers: [],
