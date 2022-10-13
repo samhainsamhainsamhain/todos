@@ -1,29 +1,22 @@
 import React, { FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
+import { postRegisterUser } from '../../api/api';
 
 interface IRegistration {
   setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Registration = ({ setHasAccount }: IRegistration) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState } = useForm({ mode: 'onChange' });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
-  function signUpUserHandler(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function signUpUserHandler(data: any) {
+    postRegisterUser({ ...data });
   }
 
   return (
     <div>
       <h2>Please Sign up!</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(signUpUserHandler)}>
         <label htmlFor="username">Username</label>
         <input id="username" {...register('username', { required: true })} />
         <label htmlFor="password">Password</label>
@@ -35,10 +28,12 @@ const Registration = ({ setHasAccount }: IRegistration) => {
         <label htmlFor="password">Confirm Password</label>
         <input
           type="password"
-          id="password-confirm"
-          {...register('password-confirm', { required: true })}
+          id="confirmPassword"
+          {...register('confirmPassword', { required: true })}
         />
-        <button type="button">Sign Up</button>
+        <button type="submit" disabled={!formState.isValid}>
+          Sign Up
+        </button>
       </form>{' '}
       <div>
         <button onClick={() => setHasAccount(true)}>
