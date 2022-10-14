@@ -10,13 +10,10 @@ export function useAuth() {
   useEffect(() => {
     getAuthUser()
       .then(({ data }) => {
-        console.log(data);
         updateAuthUser(data);
-        setTimeout(() => setLoading(false), 1000);
       })
       .catch((err) => {
         console.log(err);
-        setTimeout(() => setLoading(false), 1000);
       });
     return () => {
       controller.abort();
