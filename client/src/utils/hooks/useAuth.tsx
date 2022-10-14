@@ -11,9 +11,11 @@ export function useAuth() {
     getAuthUser()
       .then(({ data }) => {
         updateAuthUser(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
     return () => {
       controller.abort();
