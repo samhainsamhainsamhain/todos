@@ -18,8 +18,8 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  login(@Res() response: Response) {
-    return response.send(HttpStatus.OK);
+  login(@Req() request: Request) {
+    return request.user;
   }
 
   @Get('status')
