@@ -8,10 +8,8 @@ import { TodosModule } from './todos/todos.module';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 
-import { User } from './typeorm/entities/User';
-import { TodoList } from './typeorm/entities/TodoList';
-import { Todos } from './typeorm/entities/Todo';
-import { Session } from './typeorm/entities/Session';
+import entities from './typeorm/entities';
+import MysqlDataSource from './typeorm/MysqlDataSource';
 
 @Module({
   imports: [
@@ -21,13 +19,8 @@ import { Session } from './typeorm/entities/Session';
     TodosModule,
     PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'admin',
-      password: 'admin',
-      database: 'todonet_mysql',
-      entities: [User, TodoList, Todos, Session],
+      ...MysqlDataSource.options,
+      entities,
       synchronize: true,
     }),
   ],

@@ -2,21 +2,17 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-import { TypeormStore } from 'connect-typeorm/out';
 import * as session from 'express-session';
 import * as passport from 'passport';
 
-async function bootstrap() {
-  const { PORT, COOKIE_SECRET } = process.env;
-  console.log(COOKIE_SECRET);
+import { TypeormStore } from 'connect-typeorm/out';
+import MysqlDataSource from './typeorm/MysqlDataSource';
+import { Session } from './typeorm/entities';
 
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const sessionRepository = new TypeormStore({
-    cleanupLimit: 2,
-    limitSubquery: false, // If using MariaDB.
-    ttl: 86400,
-  });
+  const sessionRepository = MysqlDataSource.getRepository(Session);
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -34,7 +30,11 @@ async function bootstrap() {
       cookie: {
         maxAge: 86400000, // cookie expires 1 day later
       },
-      store: sessionRepository,
+      store: new TypeormStore({
+        cleanupLimit: 2,
+        limitSubquery: false, // If using MariaDB.
+        ttl: 86400,
+      }).connect(sessionRepository),
     }),
   );
 
