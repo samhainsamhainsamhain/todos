@@ -10,7 +10,7 @@ export const postRegisterUser = (data: CreateUserParams) =>
   axios.post(`${API_URL}/users`, data, config);
 
 export const postLoginUser = (data: UserCredentialsParams) =>
-  axios.post(`${API_URL}/auth/login`, data, config);
+  axios.post<User>(`${API_URL}/auth/login`, data, config);
 
 export const getAuthUser = () =>
   axios.get<User>(`${API_URL}/auth/status`, config);

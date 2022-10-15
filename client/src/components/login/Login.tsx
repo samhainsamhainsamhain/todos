@@ -1,19 +1,25 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { postLoginUser } from '../../api/api';
 import { UserCredentialsParams } from '../../types/User';
+import { AuthContext } from '../../utils/AuthContext';
 
 interface ILogin {
   setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Login = ({ setHasAccount }: ILogin) => {
+  const { user, updateAuthUser } = useContext(AuthContext);
   const { register, handleSubmit, formState } =
     useForm<UserCredentialsParams>();
 
   async function signInUserHandler(data: UserCredentialsParams) {
     try {
-      await postLoginUser({ ...data });
+      const userData = await postLoginUser({ ...data });
+      updateAuthUser({
+        username: userData.data.username,
+        id: userData.data.id,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -37,6 +43,7 @@ const Login = ({ setHasAccount }: ILogin) => {
         <button onClick={() => setHasAccount(false)}>
           Don't have account?
         </button>
+        <button onClick={() => console.log(user)}>Check User</button>
       </div>
     </div>
   );
