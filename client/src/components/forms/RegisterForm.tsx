@@ -1,13 +1,11 @@
-import React, { FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { postRegisterUser } from '../../api/api';
 import { CreateUserParams } from '../../types/User';
 
-interface IRegistration {
-  setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
-}
+interface IRegistration {}
 
-const Registration = ({ setHasAccount }: IRegistration) => {
+const RegisterForm = ({}: IRegistration) => {
   const { register, handleSubmit, formState } = useForm<CreateUserParams>({
     mode: 'onChange',
   });
@@ -43,12 +41,13 @@ const Registration = ({ setHasAccount }: IRegistration) => {
         </button>
       </form>{' '}
       <div>
-        <button onClick={() => setHasAccount(true)}>
-          Already have account?
-        </button>
+        <span>Already have an account? </span>
+        <Link to="/login">
+          <span>Sign in!</span>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Registration;
+export default RegisterForm;

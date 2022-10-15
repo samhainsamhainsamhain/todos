@@ -17,10 +17,11 @@ export function useAuth() {
         console.log(err);
         setLoading(false);
       });
+
     return () => {
       controller.abort();
     };
-  });
+  }, []);
 
   return { user, loading };
 }

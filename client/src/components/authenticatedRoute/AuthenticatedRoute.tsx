@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../utils/hooks/useAuth';
-import Auth from '../auth/Auth';
 
 export const AuthenticatedRoute: FC<React.PropsWithChildren> = ({
   children,
@@ -12,5 +12,5 @@ export const AuthenticatedRoute: FC<React.PropsWithChildren> = ({
   }
 
   if (user) return <>{children}</>;
-  return <Auth />;
+  return <Navigate to="/login" state={{ from: location }} replace />;
 };

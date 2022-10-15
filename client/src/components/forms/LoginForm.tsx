@@ -1,25 +1,21 @@
-import React, { FormEvent, useContext } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import { postLoginUser } from '../../api/api';
 import { UserCredentialsParams } from '../../types/User';
 import { AuthContext } from '../../utils/AuthContext';
 
-interface ILogin {
-  setHasAccount: React.Dispatch<React.SetStateAction<boolean>>;
-}
+interface ILogin {}
 
-const Login = ({ setHasAccount }: ILogin) => {
-  const { user, updateAuthUser } = useContext(AuthContext);
+const LoginForm = ({}: ILogin) => {
   const { register, handleSubmit, formState } =
     useForm<UserCredentialsParams>();
+  const navigate = useNavigate();
 
   async function signInUserHandler(data: UserCredentialsParams) {
     try {
-      const userData = await postLoginUser({ ...data });
-      updateAuthUser({
-        username: userData.data.username,
-        id: userData.data.id,
-      });
+      await postLoginUser({ ...data });
+      navigate('/dashboard');
     } catch (error) {
       console.error(error);
     }
@@ -40,13 +36,13 @@ const Login = ({ setHasAccount }: ILogin) => {
         <button type="submit">Sign In</button>
       </form>
       <div>
-        <button onClick={() => setHasAccount(false)}>
-          Don't have account?
-        </button>
-        <button onClick={() => console.log(user)}>Check User</button>
+        <span>Don't have an account? </span>
+        <Link to="/register">
+          <span>Sign up!</span>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginForm;
