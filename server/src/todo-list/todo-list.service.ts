@@ -9,6 +9,7 @@ import {
 
 import { TodoList } from 'src/typeorm/entities/TodoList';
 import { User } from 'src/typeorm/entities/User';
+import MysqlDataSource from 'src/typeorm/MysqlDataSource';
 
 @Injectable()
 export class TodoListService {
@@ -68,7 +69,12 @@ export class TodoListService {
     );
   }
 
-  async deleteTodoList(id: number) {
-    return await this.todoListsRepository.delete({ id });
+  async deleteTodoList(id: number, userId: number) {
+    return await MysqlDataSource.createQueryBuilder()
+      .delete()
+      .from('todo_lists')
+      .where('userId = :userId', { userId })
+      .andWhere('id = :id', { id })
+      .execute();
   }
 }
