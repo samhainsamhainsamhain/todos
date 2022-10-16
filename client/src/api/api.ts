@@ -4,13 +4,18 @@ import { CreateUserParams, User, UserCredentialsParams } from '../types/User';
 const API_URL = 'http://localhost:3001';
 // process.env.REACT_APP_API_URL; // TODO get variables from env, currently undefined
 
+const axiosClient = axios.create({ baseURL: API_URL });
 const config: AxiosRequestConfig = { withCredentials: true };
 
 export const postRegisterUser = (data: CreateUserParams) =>
-  axios.post(`${API_URL}/users`, data, config);
+  axiosClient.post(`/users`, data, config);
 
 export const postLoginUser = (data: UserCredentialsParams) =>
-  axios.post(`${API_URL}/auth/login`, data, config);
+  axiosClient.post(`/auth/login`, data, config);
 
-export const getAuthUser = () =>
-  axios.get<User>(`${API_URL}/auth/status`, config);
+export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
+
+export const logoutUser = () => axiosClient.post('/auth/logout', {}, config);
+
+export const getTodoListById = (id: number) =>
+  axiosClient.get('/lists', { headers: { userid: id } });
