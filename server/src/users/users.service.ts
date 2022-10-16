@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   findOneUser(userDetails: FindOneUserParams) {
-    return this.userRepository.findOneBy({ id: userDetails.id });
+    return this.userRepository.findOneBy({ username: userDetails.username });
   }
 
   async createUser(userDetails: CreateUserParams) {
