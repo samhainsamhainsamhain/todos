@@ -32,7 +32,7 @@ export class AuthController {
   @UseGuards(AuthenticatedGuard)
   logout(@Req() request: Request, @Res() response: Response) {
     request.logout((err) => {
-      return err ? response.send(400) : response.send(200);
+      return err ? response.sendStatus(400) : response.sendStatus(200);
     });
   }
 }
