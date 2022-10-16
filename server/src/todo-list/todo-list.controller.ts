@@ -16,41 +16,33 @@ import { Routes } from 'src/utils/constants';
 export class TodoListController {
   constructor(private todoListService: TodoListService) {}
   @Get()
-  async fetchTodoListsByUserId(@Headers('userId') userId: number) {
-    const todoLists = await this.todoListService.fetchTodoLists(userId);
-    return {
-      message: `you are looking todoLists by id: ${userId}`,
-      todoLists,
-    };
+  async fetchTodoListsByUserId(@Headers('userid') userId: number) {
+    return await this.todoListService.fetchTodoLists(userId);
   }
 
   @Post()
   createTodoList(
-    @Headers('userId') userId: number,
+    @Headers('userid') userId: number,
     @Body() createTodoListDto: CreateTodoListDto,
   ) {
-    this.todoListService.createTodoList(userId, createTodoListDto);
-    return {
-      statusCode: 201,
-      message: 'todoList created',
-    };
+    return this.todoListService.createTodoList(userId, createTodoListDto);
   }
 
   @Put(':id')
-  updateTodoList(
-    @Headers('userId') userId: number,
+  async updateTodoList(
+    @Headers('userid') userId: number,
     @Param('id') id: number,
     @Body() updateTodoListDto: CreateTodoListDto,
   ) {
-    this.todoListService.updateTodoList(userId, id, updateTodoListDto);
-    return {
-      statusCode: 201,
-      message: 'todoList updated',
-    };
+    return await this.todoListService.updateTodoList(
+      userId,
+      id,
+      updateTodoListDto,
+    );
   }
 
   @Delete(':id')
-  deleteTodoList(@Param('id') id: number) {
-    this.todoListService.deleteTodoList(id);
+  deleteTodoList(@Headers('userid') userId: number, @Param('id') id: number) {
+    return this.todoListService.deleteTodoList(id, userId);
   }
 }
