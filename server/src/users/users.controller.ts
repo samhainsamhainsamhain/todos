@@ -21,19 +21,14 @@ export class UsersController {
 
   @Get()
   async fetchUsers() {
-    const users = await this.userService.fetchUsers();
-    return users;
+    return await this.userService.fetchUsers();
   }
 
   @Post()
   @UsePipes(new ValidationPipe())
   createUser(@Body(ValidateCreateUserPipe) createUserDto: CreateUserDto) {
     const { confirmPassword, ...userDetails } = createUserDto;
-    this.userService.createUser(userDetails);
-    return {
-      statusCode: 201,
-      message: `${userDetails.username} is successfully registered!`,
-    };
+    return this.userService.createUser(userDetails);
   }
 
   @Put(':id')
@@ -41,19 +36,11 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    await this.userService.updateUser(id, updateUserDto);
-    return {
-      statusCode: 201,
-      message: `${updateUserDto.username} details is successfully updated!`,
-    };
+    return await this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   async deleteUserById(@Param('id', ParseIntPipe) id: number) {
-    await this.userService.deleteUser(id);
-    return {
-      statusCode: 200,
-      message: `account with ID ${id} is successfully deleted!`,
-    };
+    return await this.userService.deleteUser(id);
   }
 }

@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   findOneUser(userDetails: FindOneUserParams) {
-    return this.userRepository.findOneBy({ username: userDetails.username });
+    return this.userRepository.findOneBy({ id: userDetails.id });
   }
 
   async createUser(userDetails: CreateUserParams) {
@@ -28,7 +28,7 @@ export class UsersService {
       username: userDetails.username,
     });
     if (existingUser) {
-      throw new HttpException('User already exists', HttpStatus.CONFLICT);
+      return new HttpException('User already exists', HttpStatus.CONFLICT);
     }
     const password = await hashPassword(userDetails.password);
     const newUser = this.userRepository.create({ ...userDetails, password });
