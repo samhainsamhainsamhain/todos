@@ -17,5 +17,5 @@ export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
 
 export const logoutUser = () => axiosClient.post('/auth/logout', {}, config);
 
-export const getTodoListById = (id: number) =>
+export const getTodoListByUserId = (id: number) =>
   axiosClient.get('/lists', { headers: { userid: id } });

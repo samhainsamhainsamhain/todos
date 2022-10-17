@@ -20,9 +20,6 @@ const TodoListPanel = () => {
       {todoLists.map((todoList) => {
         return <div>{todoList.title}</div>;
       })}
-      <button onClick={() => dispatch(fetchTodoLists(user!.id))}>
-        fetch lists
-      </button>
     </div>
   );
 };

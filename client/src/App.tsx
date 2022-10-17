@@ -9,6 +9,8 @@ import { Route, Routes } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
+import { TodoListsPage } from './pages/TodoListsPage';
+import TodosPage from './pages/TodosPage';
 
 interface IApp {
   user?: User;
@@ -39,13 +41,16 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <AuthenticatedRoute>
                 <Dashboard />
               </AuthenticatedRoute>
             }
           ></Route>
+          <Route path="/lists" element={<TodoListsPage />}>
+            <Route path=":id" element={<TodosPage />} />
+          </Route>
         </Routes>
       </AppWithProviders>
     </div>
