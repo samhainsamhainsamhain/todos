@@ -1,13 +1,13 @@
 import React from 'react';
-import TodoListPanel from '../components/todolists/TodoListPanel';
-import TodoListSidebar from '../components/todolists/TodoListSidebar';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       Welcome to your Dashboard!
-      <TodoListPanel />
-      <TodoListSidebar />
+      <button onClick={() => navigate('lists')}>Lists</button>
     </div>
   );
 };
