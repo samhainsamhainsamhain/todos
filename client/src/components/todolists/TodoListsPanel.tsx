@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { fetchTodoLists } from '../../store/todoLists/ActionCreators';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
+import TodoListItem from './TodoList';
+import TodoList from './TodoList';
 
 const TodoListPanel = () => {
   const { user } = useContext(AuthContext);
@@ -18,7 +20,12 @@ const TodoListPanel = () => {
     <div>
       <h2>TodoListPage111</h2>
       {todoLists.map((todoList) => {
-        return <div>{todoList.title}</div>;
+        return (
+          <TodoListItem
+            todoListItem={todoList}
+            key={todoList.createdAt.toString()}
+          />
+        );
       })}
     </div>
   );
