@@ -1,9 +1,7 @@
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { postLoginUser } from '../../api/api';
 import { UserCredentialsParams } from '../../types/User';
-import { AuthContext } from '../../utils/AuthContext';
 
 interface ILogin {}
 
@@ -15,7 +13,7 @@ const LoginForm = ({}: ILogin) => {
   async function signInUserHandler(data: UserCredentialsParams) {
     try {
       await postLoginUser({ ...data });
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
