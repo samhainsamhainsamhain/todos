@@ -48,7 +48,8 @@ function App() {
               </AuthenticatedRoute>
             }
           ></Route>
-          <Route path="/lists" element={<TodoListsPage />}>
+          <Route path="/lists">
+            <Route index element={<TodoListsPage />} />
             <Route path=":id" element={<TodosPage />} />
           </Route>
         </Routes>
