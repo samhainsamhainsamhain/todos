@@ -19,11 +19,7 @@ export class TodosController {
 
   @Get()
   async fetchTodosByListId(@Headers('listid') listId: number) {
-    const todos = await this.todosService.fetchTodos(listId);
-    return {
-      message: `you are looking todos from list ${listId}`,
-      todos,
-    };
+    return await this.todosService.fetchTodos(listId);
   }
 
   @Post()
@@ -31,11 +27,7 @@ export class TodosController {
     @Headers('listid') listId: number,
     @Body() createTodoDto: CreateTodoDto,
   ) {
-    this.todosService.createTodo(listId, createTodoDto);
-    return {
-      statusCode: 201,
-      message: 'todo created',
-    };
+    return this.todosService.createTodo(listId, createTodoDto);
   }
 
   @Put(':id')
@@ -44,19 +36,11 @@ export class TodosController {
     @Param('id') id: number,
     @Body() updateTodoDto: CreateTodoDto,
   ) {
-    this.todosService.updateTodoById(listId, id, updateTodoDto);
-    return {
-      statusCode: 201,
-      message: 'todo updated',
-    };
+    return this.todosService.updateTodoById(listId, id, updateTodoDto);
   }
 
   @Delete(':id')
   deleteTodo(@Param('id') id: number) {
-    this.todosService.deleteTodoById(id);
-    return {
-      statusCode: 201,
-      message: 'todo deleted',
-    };
+    return this.todosService.deleteTodoById(id);
   }
 }
