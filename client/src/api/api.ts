@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { CreateTodoParams } from '../types/TodoItem';
+import { DeleteTodoListParams, UpdateTodoListParams } from '../types/TodoList';
 import { CreateUserParams, User, UserCredentialsParams } from '../types/User';
 
 const API_URL = 'http://localhost:3001';
@@ -23,6 +24,20 @@ export const getTodoListByUserId = (id: number) =>
 
 export const postTodoList = (title: string, userid: number) =>
   axiosClient.post(`/lists`, { title }, { ...config, headers: { userid } });
+
+export const updateTodoList = (data: UpdateTodoListParams) => {
+  const { id, title, userid } = data;
+  return axiosClient.put(
+    `/lists/${id}`,
+    { title },
+    { ...config, headers: { userid } }
+  );
+};
+
+export const deleteTodoList = (data: DeleteTodoListParams) => {
+  const { id, userid } = data;
+  return axiosClient.delete(`/lists/${id}`, { ...config, headers: { userid } });
+};
 
 export const getTodosByListId = (id: number) =>
   axiosClient.get('/todos', { headers: { listid: id } });
