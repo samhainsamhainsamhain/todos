@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { fetchTodoLists } from '../../store/todoLists/ActionCreators';
+import { fetchTodoListsThunk } from '../../store/todoLists/todoListsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
 import TodoListForm from '../forms/TodoListForm';
@@ -15,7 +15,7 @@ const TodoListPanel = () => {
   const [showTodoListForm, setShowTodoListForm] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchTodoLists(user!.id));
+    dispatch(fetchTodoListsThunk(user!.id));
   }, []);
 
   const ShowTodoListFormHandler = () => {

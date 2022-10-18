@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { postTodoList } from '../../api/api';
-import { fetchTodoLists } from '../../store/todoLists/ActionCreators';
+import { fetchTodoListsThunk } from '../../store/todoLists/todoListsThunk';
 import { CreateTodoListParams } from '../../types/TodoList';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch } from '../../utils/hooks/redux';
@@ -18,7 +18,7 @@ const TodoListForm = ({ setShowTodoListForm }: ITodoList) => {
   async function createTodoListHandler(data: CreateTodoListParams) {
     try {
       await postTodoList(data.title, user!.id);
-      await dispatch(fetchTodoLists(user!.id));
+      await dispatch(fetchTodoListsThunk(user!.id));
     } catch (error) {
       console.error(error);
     }
