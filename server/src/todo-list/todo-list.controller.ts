@@ -34,11 +34,8 @@ export class TodoListController {
     @Param('id') id: number,
     @Body() updateTodoListDto: CreateTodoListDto,
   ) {
-    return await this.todoListService.updateTodoList(
-      userId,
-      id,
-      updateTodoListDto,
-    );
+    await this.todoListService.updateTodoList(userId, id, updateTodoListDto);
+    return updateTodoListDto;
   }
 
   @Delete(':id')
