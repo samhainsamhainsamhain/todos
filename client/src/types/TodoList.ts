@@ -3,3 +3,7 @@ export type TodoList = {
   title: string;
   createdAt: Date;
 };
+
+export type CreateTodoListParams = {
+  title: string;
+};

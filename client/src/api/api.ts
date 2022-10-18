@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { CreateTodoParams } from '../types/TodoItem';
 import { CreateUserParams, User, UserCredentialsParams } from '../types/User';
 
 const API_URL = 'http://localhost:3001';
@@ -20,5 +21,11 @@ export const logoutUser = () => axiosClient.post('/auth/logout', {}, config);
 export const getTodoListByUserId = (id: number) =>
   axiosClient.get('/lists', { headers: { userid: id } });
 
+export const postTodoList = (title: string, userid: number) =>
+  axiosClient.post(`/lists`, { title }, { ...config, headers: { userid } });
+
 export const getTodosByListId = (id: number) =>
   axiosClient.get('/todos', { headers: { listid: id } });
+
+export const postTodo = (data: CreateTodoParams, listid: number) =>
+  axiosClient.post(`/todos`, data, { ...config, headers: { listid } });
