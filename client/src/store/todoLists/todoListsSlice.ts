@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TodoList } from '../../types/TodoList';
-import { fetchTodoLists } from './ActionCreators';
+import { TodoList, TodoListEventPayload } from '../../types/TodoList';
+import { fetchTodoListsThunk } from './todoListsThunk';
 
 export interface TodoListsState {
   todoLists: TodoList[];
@@ -18,9 +18,32 @@ const initialState: TodoListsState = {
 export const todoListsSlice = createSlice({
   name: 'todoLists',
   initialState,
-  reducers: {},
+  reducers: {
+    editTodoList: (state, action: PayloadAction<TodoListEventPayload>) => {
+      const newTodolist = action.payload.todoList;
+      const oldTodoList = state.todoLists.find(
+        (todoList) => todoList.id === newTodolist.id
+      );
+      if (!oldTodoList) return;
+      const oldTodoListIndex = state.todoLists.findIndex(
+        (todoList) => todoList.id === newTodolist.id
+      );
+      state.todoLists[oldTodoListIndex] = newTodolist;
+    },
+    removeTodoList: (state, action: PayloadAction<TodoList>) => {
+      const newTodolist = action.payload;
+      const oldTodoList = state.todoLists.find(
+        (todoList) => todoList.id === newTodolist.id
+      );
+      if (!oldTodoList) return;
+      const oldTodoListIndex = state.todoLists.findIndex(
+        (todoList) => todoList.id === newTodolist.id
+      );
+      state.todoLists[oldTodoListIndex] = newTodolist;
+    },
+  },
   extraReducers: {
-    [fetchTodoLists.fulfilled.type]: (
+    [fetchTodoListsThunk.fulfilled.type]: (
       state,
       action: PayloadAction<TodoList[]>
     ) => {
@@ -28,13 +51,16 @@ export const todoListsSlice = createSlice({
       state.error = '';
       state.todoLists = action.payload;
     },
-    [fetchTodoLists.pending.type]: (
+    [fetchTodoListsThunk.pending.type]: (
       state,
       action: PayloadAction<TodoList[]>
     ) => {
       state.isLoading = true;
     },
-    [fetchTodoLists.rejected.type]: (state, action: PayloadAction<string>) => {
+    [fetchTodoListsThunk.rejected.type]: (
+      state,
+      action: PayloadAction<string>
+    ) => {
       state.isLoading = false;
       state.error = action.payload;
     },
