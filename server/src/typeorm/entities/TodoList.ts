@@ -22,7 +22,9 @@ export class TodoList {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @ManyToOne(() => User, (user) => user.todoLists)
+  @ManyToOne(() => User, (user) => user.todoLists, {
+    onDelete: 'CASCADE',
+  })
   user: User;
 
   @OneToMany(() => Todos, (todos) => todos.todoList)

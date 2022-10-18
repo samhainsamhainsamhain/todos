@@ -23,6 +23,8 @@ export class Todos {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @ManyToOne(() => TodoList, (todoList) => todoList.todos)
+  @ManyToOne(() => TodoList, (todoList) => todoList.todos, {
+    onDelete: 'CASCADE',
+  })
   todoList: TodoList;
 }
