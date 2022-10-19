@@ -11,7 +11,7 @@ import {
 
 export const fetchTodoListsThunk = createAsyncThunk(
   'todoLists/fetchAll',
-  async (userId: number, thunkAPI) => {
+  async (userId: string, thunkAPI) => {
     try {
       const response = await getTodoListByUserId(userId);
       return response.data;

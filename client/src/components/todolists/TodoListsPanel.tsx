@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchTodoListsThunk } from '../../store/todoLists/todoListsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
@@ -7,6 +8,7 @@ import TodoListItem from './TodoList';
 
 const TodoListPanel = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { todoLists, isLoading, error } = useAppSelector(
     (state) => state.todoListsSlice
@@ -15,8 +17,10 @@ const TodoListPanel = () => {
   const [showTodoListForm, setShowTodoListForm] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchTodoListsThunk(user!.id));
-  }, []);
+    if (!user) return navigate('/login');
+
+    dispatch(fetchTodoListsThunk(user.id));
+  }, [user]);
 
   const ShowTodoListFormHandler = () => {
     if (showTodoListForm) {

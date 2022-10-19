@@ -51,20 +51,15 @@ const TodoListItem = ({ todoListItem }: ITodoList) => {
   return (
     <div>
       {!showUpdateTodoListForm ? (
-        <h3 onClick={() => setShowUpdateTodoListForm(true)}>{title}</h3>
+        <h3 onClick={() => navigate(`/lists/${id}`)}>{title}</h3>
       ) : (
         updateTodoListForm()
       )}
 
       <p>Created: {date.toDateString()}</p>
-      <button
-        onClick={() => {
-          navigate(`/lists/${id}`);
-        }}
-      >
-        Add new Todo
+      <button onClick={() => setShowUpdateTodoListForm(true)}>
+        Edit Todo List
       </button>
-      <button onClick={updateTodoListForm}>Edit Todo List</button>
       <button onClick={deleteTodoListHandler}>Delete Todo List</button>
     </div>
   );
