@@ -17,6 +17,7 @@ export type TodoItemEventPayload = {
 export type UpdateTodoParams = {
   id: string;
   title: string;
+  description: string | undefined | null;
   listid: string;
 };
 
