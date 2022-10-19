@@ -1,5 +1,5 @@
 export type TodoList = {
-  id: number;
+  id: string;
   title: string;
   createdAt: Date;
 };
@@ -13,12 +13,12 @@ export type TodoListEventPayload = {
 };
 
 export type UpdateTodoListParams = {
-  id: number;
+  id: string;
   title: string;
-  userid: number;
+  userid: string;
 };
 
 export type DeleteTodoListParams = {
-  id: number;
-  userid: number;
+  id: string;
+  userid: string;
 };
