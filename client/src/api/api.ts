@@ -1,5 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { CreateTodoParams } from '../types/TodoItem';
+import {
+  CreateTodoParams,
+  DeleteTodoParams,
+  UpdateTodoParams,
+} from '../types/TodoItem';
 import { DeleteTodoListParams, UpdateTodoListParams } from '../types/TodoList';
 import { CreateUserParams, User, UserCredentialsParams } from '../types/User';
 
@@ -19,10 +23,10 @@ export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
 
 export const logoutUser = () => axiosClient.post('/auth/logout', {}, config);
 
-export const getTodoListByUserId = (id: number) =>
+export const getTodoListByUserId = (id: string) =>
   axiosClient.get('/lists', { headers: { userid: id } });
 
-export const postTodoList = (title: string, userid: number) =>
+export const postTodoList = (title: string, userid: string) =>
   axiosClient.post(`/lists`, { title }, { ...config, headers: { userid } });
 
 export const updateTodoList = (data: UpdateTodoListParams) => {
@@ -39,8 +43,22 @@ export const deleteTodoList = (data: DeleteTodoListParams) => {
   return axiosClient.delete(`/lists/${id}`, { ...config, headers: { userid } });
 };
 
-export const getTodosByListId = (id: number) =>
+export const getTodosByListId = (id: string) =>
   axiosClient.get('/todos', { headers: { listid: id } });
 
-export const postTodo = (data: CreateTodoParams, listid: number) =>
+export const postTodo = (data: CreateTodoParams, listid: string) =>
   axiosClient.post(`/todos`, data, { ...config, headers: { listid } });
+
+export const updateTodo = (data: UpdateTodoParams) => {
+  const { id, title, listid, description } = data;
+  return axiosClient.put(
+    `/todos/${id}`,
+    { title, description },
+    { ...config, headers: { listid } }
+  );
+};
+
+export const deleteTodo = (data: DeleteTodoParams) => {
+  const { id, listid } = data;
+  return axiosClient.delete(`/todos/${id}`, { ...config, headers: { listid } });
+};
