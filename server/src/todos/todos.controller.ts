@@ -9,7 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CreateTodoDto } from 'src/todos/todo.dto';
+import { CreateTodoDto, UpdateTodoDto } from 'src/todos/todo.dto';
 import { TodosService } from 'src/todos/todos.service';
 import { Routes } from 'src/utils/constants';
 
@@ -34,7 +34,7 @@ export class TodosController {
   updateTodo(
     @Headers('listid') listId: number,
     @Param('id') id: number,
-    @Body() updateTodoDto: CreateTodoDto,
+    @Body() updateTodoDto: UpdateTodoDto,
   ) {
     return this.todosService.updateTodoById(listId, id, updateTodoDto);
   }
