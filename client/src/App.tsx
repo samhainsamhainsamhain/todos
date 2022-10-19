@@ -1,11 +1,11 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import './App.css';
 import { AuthenticatedRoute } from './components/authenticatedRoute/AuthenticatedRoute';
 import { User } from './types/User';
 import { AuthContext } from './utils/AuthContext';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './store';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
@@ -33,6 +33,11 @@ function AppWithProviders({
 
 function App() {
   const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) return navigate('/login');
+  }, []);
 
   return (
     <div className="App">
@@ -52,6 +57,7 @@ function App() {
             <Route index element={<TodoListsPage />} />
             <Route path=":id" element={<TodosPage />} />
           </Route>
+          <Route path="*" element={<LoginPage />} />
         </Routes>
       </AppWithProviders>
     </div>
