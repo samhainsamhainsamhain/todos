@@ -7,8 +7,8 @@ export function useAuth() {
   const { user, updateAuthUser } = useContext(AuthContext);
   const controller = new AbortController();
 
-  useEffect(() => {
-    getAuthUser()
+  async function getAuthUserAsync() {
+    return await getAuthUser()
       .then(({ data }) => {
         updateAuthUser(data);
         setLoading(false);
@@ -17,6 +17,10 @@ export function useAuth() {
         console.log(err);
         setLoading(false);
       });
+  }
+
+  useEffect(() => {
+    getAuthUserAsync();
 
     return () => {
       controller.abort();
