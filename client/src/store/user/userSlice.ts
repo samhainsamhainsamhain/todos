@@ -1,9 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface UserState {}
+export interface UserState {
+  username: string | null;
+}
 
-const initialState: UserState = {};
+const initialState: UserState = {
+  username: null,
+};
 
 export const userSlice = createSlice({
   name: 'user',

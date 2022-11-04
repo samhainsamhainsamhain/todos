@@ -1,0 +1,60 @@
+.Auth {
+  &_body {
+    min-width: 320px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  &_title {
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 1.8rem;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+      font-size: 1.2rem;
+    }
+
+    .input {
+      outline: none;
+      border: 1px solid #9a9a9a;
+      padding: 5px;
+      font-size: 1.2rem;
+    }
+
+    .submit {
+      background-color: #6060ff;
+      color: white;
+      font-size: 20px;
+      margin-top: 10px;
+      padding: 10px;
+
+      &:hover {
+        background-color: #3030ff;
+      }
+
+      &:disabled {
+        background-color: #9a9a9a;
+      }
+    }
+  }
+
+  &_error {
+    background-color: #e44646;
+    border: 2px solid #ff1616;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+  }
+}
