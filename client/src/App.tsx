@@ -8,9 +8,10 @@ import { store } from './store';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
-import Dashboard from './pages/Dashboard';
 import { TodoListsPage } from './pages/TodoListsPage';
 import TodosPage from './pages/TodosPage';
+import Layout from './components/layout/Layout';
+import Dashboard from './components/dashboard/Dashboard';
 
 interface IApp {
   user?: User;
@@ -45,17 +46,14 @@ function App() {
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/"
-            element={
-              <AuthenticatedRoute>
-                <Dashboard />
-              </AuthenticatedRoute>
-            }
-          ></Route>
-          <Route path="/lists">
-            <Route index element={<TodoListsPage />} />
-            <Route path=":id" element={<TodosPage />} />
+          <Route path="/" element={<AuthenticatedRoute />}>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Dashboard />}></Route>
+              <Route path="/lists">
+                <Route index element={<TodoListsPage />} />
+                <Route path=":id" element={<TodosPage />} />
+              </Route>
+            </Route>
           </Route>
           <Route path="*" element={<LoginPage />} />
         </Routes>
