@@ -4,7 +4,7 @@ import { fetchTodoListsThunk } from '../../store/todoLists/todoListsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
 import TodoListForm from '../forms/TodoListForm';
-import TodoListItem from './TodoList';
+import TodoListItem from './TodoListItem';
 
 const TodoListPanel = () => {
   const { user } = useContext(AuthContext);
@@ -35,7 +35,7 @@ const TodoListPanel = () => {
 
   return (
     <div>
-      <h2>TodoListPage111</h2>
+      <h2>Todo Lists</h2>
       <div>
         <ShowTodoListFormHandler />
       </div>
