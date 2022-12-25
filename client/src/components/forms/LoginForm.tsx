@@ -36,36 +36,38 @@ const LoginForm = ({}: ILogin) => {
   };
 
   return (
-    <div className="Auth_body">
-      <h2 className="Auth_title">Log in</h2>
-      <form className="Auth_form" onSubmit={handleSubmit(signInUserHandler)}>
-        <label className="label" htmlFor="username">
-          Username
-        </label>
-        <input
-          className="input"
-          id="username"
-          {...register('username', { required: true })}
-        />
-        <label className="label" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="input"
-          type="password"
-          id="password"
-          {...register('password', { required: true })}
-        />
-        {error ? <LoginError /> : null}
-        <button className="submit" type="submit" disabled={!isValid}>
-          Sign In
-        </button>
-      </form>
-      <div>
-        <span>Don't have an account? </span>
-        <Link to="/register">
-          <span>Sign up!</span>
-        </Link>
+    <div className="Auth">
+      <div className="Auth_body">
+        <h2 className="Auth_title">Log in</h2>
+        <form className="Auth_form" onSubmit={handleSubmit(signInUserHandler)}>
+          <label className="label" htmlFor="username">
+            Username
+          </label>
+          <input
+            className="input"
+            id="username"
+            {...register('username', { required: true })}
+          />
+          <label className="label" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="input"
+            type="password"
+            id="password"
+            {...register('password', { required: true })}
+          />
+          {error ? <LoginError /> : null}
+          <button className="submit" type="submit" disabled={!isValid}>
+            Sign In
+          </button>
+        </form>
+        <div>
+          <span>Don't have an account? </span>
+          <Link to="/register">
+            <span>Sign up!</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

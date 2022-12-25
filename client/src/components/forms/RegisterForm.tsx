@@ -35,51 +35,53 @@ const RegisterForm = ({}: IRegistration) => {
   };
 
   return (
-    <div className="Auth_body">
-      <h2 className="Auth_title">Please Sign up!</h2>
-      <form className="Auth_form" onSubmit={handleSubmit(signUpUserHandler)}>
-        <label className="label" htmlFor="username">
-          Username
-        </label>
-        <input
-          className="input"
-          id="username"
-          {...register('username', { required: true })}
-        />
-        <label className="label" htmlFor="password">
-          Password
-        </label>
-        <input
-          className="input"
-          type="password"
-          id="password"
-          {...register('password', { required: true })}
-        />
-        <label className="label" htmlFor="password">
-          Confirm Password
-        </label>
-        <input
-          className="input"
-          type="password"
-          id="confirmPassword"
-          {...register('confirmPassword', {
-            required: true,
-            validate: (val: string) => {
-              const { password } = getValues();
-              return password === val || 'Passwords should match!';
-            },
-          })}
-        />
-        {error ? <SignUpError /> : null}
-        <button className="submit" type="submit" disabled={!isValid}>
-          Sign Up
-        </button>
-      </form>
-      <div>
-        <span>Already have an account? </span>
-        <Link to="/login">
-          <span>Sign in!</span>
-        </Link>
+    <div className="Auth">
+      <div className="Auth_body">
+        <h2 className="Auth_title">Please Sign up!</h2>
+        <form className="Auth_form" onSubmit={handleSubmit(signUpUserHandler)}>
+          <label className="label" htmlFor="username">
+            Username
+          </label>
+          <input
+            className="input"
+            id="username"
+            {...register('username', { required: true })}
+          />
+          <label className="label" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="input"
+            type="password"
+            id="password"
+            {...register('password', { required: true })}
+          />
+          <label className="label" htmlFor="password">
+            Confirm Password
+          </label>
+          <input
+            className="input"
+            type="password"
+            id="confirmPassword"
+            {...register('confirmPassword', {
+              required: true,
+              validate: (val: string) => {
+                const { password } = getValues();
+                return password === val || 'Passwords should match!';
+              },
+            })}
+          />
+          {error ? <SignUpError /> : null}
+          <button className="submit" type="submit" disabled={!isValid}>
+            Sign Up
+          </button>
+        </form>
+        <div>
+          <span>Already have an account? </span>
+          <Link to="/login">
+            <span>Sign in!</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
