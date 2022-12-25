@@ -9,7 +9,7 @@ interface ITodoForm {
   setShowCreateTodoForm: (state: boolean) => void;
 }
 
-const TodoListForm = ({ setShowCreateTodoForm }: ITodoForm) => {
+const TodoItemForm = ({ setShowCreateTodoForm }: ITodoForm) => {
   const { register, handleSubmit, formState } = useForm<CreateTodoParams>();
   const dispatch = useAppDispatch();
   const { id: listid } = useParams();
@@ -25,15 +25,15 @@ const TodoListForm = ({ setShowCreateTodoForm }: ITodoForm) => {
   }
 
   return (
-    <div>
-      <h2>Create new Todo List</h2>
+    <div className="TodoForm">
+      <h2>Create new Todo</h2>
       <form onSubmit={handleSubmit(createTodoListHandler)}>
         <label htmlFor="title">Title</label>
         <input id="title" {...register('title', { required: true })} />
         <label htmlFor="description">Description</label>
         <input
           id="description"
-          {...register('description', { required: true })}
+          {...register('description', { required: false })}
         />
         <button type="submit">Create</button>
       </form>
@@ -42,4 +42,4 @@ const TodoListForm = ({ setShowCreateTodoForm }: ITodoForm) => {
   );
 };
 
-export default TodoListForm;
+export default TodoItemForm;
