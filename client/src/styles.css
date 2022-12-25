@@ -1,2 +1,4 @@
 @import './App.css';
 @import './components/forms/index.css';
+@import './components/layout/index.css';
+@import './components/dashboard/index.css';
