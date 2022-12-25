@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  border-bottom: 1px solid #00000050;
+}
+
+.nav {
+  font-size: 24px;
+
+  & a {
+    margin: 10px;
+    padding: 5px;
+    color: #000000;
+    text-decoration: none;
+    border: 1px solid #00000050;
+    border-radius: 15px;
+    transition: background-color 0.3s, margin 0.5s, padding 0.5s;
+
+    &:hover {
+      background-color: white;
+      margin: 5px;
+      padding: 10px;
+    }
+  }
+}
