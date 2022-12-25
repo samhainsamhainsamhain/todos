@@ -33,7 +33,7 @@ const TodosPanel = () => {
     } else
       return (
         <button onClick={() => setShowCreateTodoForm(true)}>
-          Create new Todo List
+          Create new Todo
         </button>
       );
   };
