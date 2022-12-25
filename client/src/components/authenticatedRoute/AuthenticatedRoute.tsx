@@ -1,34 +1,15 @@
-import { FC, useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../api/api';
-import { AuthContext } from '../../utils/AuthContext';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../utils/hooks/useAuth';
 
-export const AuthenticatedRoute: FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+export const AuthenticatedRoute = () => {
+  const location = useLocation();
   const { loading, user } = useAuth();
 
-  const { updateAuthUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+  if (loading) return <h3>Loading...</h3>;
 
-  function logOut() {
-    logoutUser();
-    updateAuthUser();
-    navigate('/login');
-  }
-
-  if (loading) {
-    return <div>loading...</div>;
-  }
-
-  if (!user) return <Navigate to="/login" replace />;
-
-  return (
-    <>
-      <h2>Auth route</h2>
-      <button onClick={logOut}>Logout</button>
-      {children}
-    </>
+  return user ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace state={{ from: location }} />
   );
 };
