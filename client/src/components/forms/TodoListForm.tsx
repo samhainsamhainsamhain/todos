@@ -11,7 +11,11 @@ interface ITodoList {
 }
 
 const TodoListForm = ({ setShowTodoListForm }: ITodoList) => {
-  const { register, handleSubmit, formState } = useForm<CreateTodoListParams>();
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<CreateTodoListParams>();
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
 
@@ -25,12 +29,14 @@ const TodoListForm = ({ setShowTodoListForm }: ITodoList) => {
   }
 
   return (
-    <div>
+    <div className="TodoForm">
       <h2>Create new Todo List</h2>
       <form onSubmit={handleSubmit(createTodoListHandler)}>
         <label htmlFor="title">Title</label>
         <input id="title" {...register('title', { required: true })} />
-        <button type="submit">Create</button>
+        <button type="submit" disabled={!isValid}>
+          Create
+        </button>
       </form>
       <button onClick={() => setShowTodoListForm(false)}>Cancel</button>
     </div>
