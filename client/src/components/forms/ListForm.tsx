@@ -15,7 +15,7 @@ const ListForm = ({ setShowListForm }: IList) => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<CreateListParams>();
+  } = useForm<CreateListParams>({ mode: 'onChange' });
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
 
@@ -32,10 +32,7 @@ const ListForm = ({ setShowListForm }: IList) => {
     <div className="TodoForm">
       <h2>Create new List</h2>
       <form onSubmit={handleSubmit((data) => createListHandler(data))}>
-        <input
-          placeholder="title"
-          {...register('title', { required: true })}
-        />
+        <input placeholder="title" {...register('title', { required: true })} />
         <button type="submit" disabled={!isValid}>
           Create
         </button>
