@@ -8,7 +8,7 @@ import { store } from './store';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
-import { TodoListsPage } from './pages/TodoListsPage';
+import { ListsPage } from './pages/ListsPage';
 import TodosPage from './pages/TodosPage';
 import Layout from './components/layout/Layout';
 import Dashboard from './components/dashboard/Dashboard';
@@ -50,7 +50,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />}></Route>
               <Route path="/lists">
-                <Route index element={<TodoListsPage />} />
+                <Route index element={<ListsPage />} />
                 <Route path=":id" element={<TodosPage />} />
               </Route>
             </Route>

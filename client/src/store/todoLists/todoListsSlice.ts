@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TodoList, TodoListEventPayload } from '../../types/TodoList';
-import { fetchTodoListsThunk } from './todoListsThunk';
+import { List, ListEventPayload } from '../../types/List';
+import { fetchListsThunk } from './todoListsThunk';
 
-export interface TodoListsState {
-  todoLists: TodoList[];
+export interface ListsState {
+  todoLists: List[];
   isLoading: boolean;
   error: string;
 }
 
-const initialState: TodoListsState = {
+const initialState: ListsState = {
   todoLists: [],
   isLoading: false,
   error: '',
@@ -19,48 +19,42 @@ export const todoListsSlice = createSlice({
   name: 'todoLists',
   initialState,
   reducers: {
-    editTodoList: (state, action: PayloadAction<TodoListEventPayload>) => {
+    editList: (state, action: PayloadAction<ListEventPayload>) => {
       const newTodolist = action.payload.todoList;
-      const oldTodoList = state.todoLists.find(
+      const oldList = state.todoLists.find(
         (todoList) => todoList.id === newTodolist.id
       );
-      if (!oldTodoList) return;
-      const oldTodoListIndex = state.todoLists.findIndex(
+      if (!oldList) return;
+      const oldListIndex = state.todoLists.findIndex(
         (todoList) => todoList.id === newTodolist.id
       );
-      state.todoLists[oldTodoListIndex] = newTodolist;
+      state.todoLists[oldListIndex] = newTodolist;
     },
-    removeTodoList: (state, action: PayloadAction<TodoList>) => {
+    removeList: (state, action: PayloadAction<List>) => {
       const newTodolist = action.payload;
-      const oldTodoList = state.todoLists.find(
+      const oldList = state.todoLists.find(
         (todoList) => todoList.id === newTodolist.id
       );
-      if (!oldTodoList) return;
-      const oldTodoListIndex = state.todoLists.findIndex(
+      if (!oldList) return;
+      const oldListIndex = state.todoLists.findIndex(
         (todoList) => todoList.id === newTodolist.id
       );
-      state.todoLists[oldTodoListIndex] = newTodolist;
+      state.todoLists[oldListIndex] = newTodolist;
     },
   },
   extraReducers: {
-    [fetchTodoListsThunk.fulfilled.type]: (
+    [fetchListsThunk.fulfilled.type]: (
       state,
-      action: PayloadAction<TodoList[]>
+      action: PayloadAction<List[]>
     ) => {
       state.isLoading = false;
       state.error = '';
       state.todoLists = action.payload;
     },
-    [fetchTodoListsThunk.pending.type]: (
-      state,
-      action: PayloadAction<TodoList[]>
-    ) => {
+    [fetchListsThunk.pending.type]: (state, action: PayloadAction<List[]>) => {
       state.isLoading = true;
     },
-    [fetchTodoListsThunk.rejected.type]: (
-      state,
-      action: PayloadAction<string>
-    ) => {
+    [fetchListsThunk.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },

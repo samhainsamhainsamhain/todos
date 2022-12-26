@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchTodoListsThunk } from '../../store/todoLists/todoListsThunk';
+import { fetchListsThunk } from '../../store/todoLists/todoListsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
-import TodoListForm from '../forms/TodoListForm';
-import TodoListItem from './TodoListItem';
+import ListForm from '../forms/ListForm';
+import ListItem from './ListItem';
 
-const TodoListPanel = () => {
+const ListPanel = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -14,34 +14,32 @@ const TodoListPanel = () => {
     (state) => state.todoListsSlice
   );
 
-  const [showTodoListForm, setShowTodoListForm] = useState(false);
+  const [showListForm, setShowListForm] = useState(false);
 
   useEffect(() => {
     if (!user) return navigate('/login');
 
-    dispatch(fetchTodoListsThunk(user.id));
+    dispatch(fetchListsThunk(user.id));
   }, [user]);
 
-  const ShowTodoListFormHandler = () => {
-    if (showTodoListForm) {
-      return <TodoListForm setShowTodoListForm={setShowTodoListForm} />;
+  const ShowListFormHandler = () => {
+    if (showListForm) {
+      return <ListForm setShowListForm={setShowListForm} />;
     } else
       return (
-        <button onClick={() => setShowTodoListForm(true)}>
-          Create new Todo List
-        </button>
+        <button onClick={() => setShowListForm(true)}>Create new List</button>
       );
   };
 
   return (
-    <div>
+    <div className="lists">
       <h2>Todo Lists</h2>
       <div>
-        <ShowTodoListFormHandler />
+        <ShowListFormHandler />
       </div>
       {todoLists.map((todoList) => {
         return (
-          <TodoListItem
+          <ListItem
             todoListItem={todoList}
             key={todoList.createdAt.toString()}
           />
@@ -53,4 +51,4 @@ const TodoListPanel = () => {
   );
 };
 
-export default TodoListPanel;
+export default ListPanel;

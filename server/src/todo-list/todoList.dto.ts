@@ -1,11 +1,11 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateTodoListDto {
+export class CreateListDto {
   @IsNotEmpty()
   title: string;
 }
 
-export class UpdateTodoListDto {
+export class UpdateListDto {
   @IsNotEmpty()
   title: string;
 }

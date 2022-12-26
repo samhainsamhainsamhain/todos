@@ -12,7 +12,7 @@ import { User } from './User';
 @Entity({
   name: 'todo_lists',
 })
-export class TodoList {
+export class List {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 

@@ -2,26 +2,23 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import {
-  CreateTodoListDto,
-  UpdateTodoListDto,
-} from 'src/todo-list/todoList.dto';
+import { CreateListDto, UpdateListDto } from 'src/todo-list/todoList.dto';
 
-import { TodoList } from 'src/typeorm/entities/TodoList';
+import { List } from 'src/typeorm/entities/List';
 import { User } from 'src/typeorm/entities/User';
 import MysqlDataSource from 'src/typeorm/MysqlDataSource';
 
 @Injectable()
-export class TodoListService {
+export class ListService {
   constructor(
-    @InjectRepository(TodoList)
-    private todoListsRepository: Repository<TodoList>,
+    @InjectRepository(List)
+    private todoListsRepository: Repository<List>,
 
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
-  async fetchTodoLists(id: number) {
+  async fetchLists(id: number) {
     const user = await this.userRepository.findOneBy({ id });
 
     if (!user)
@@ -35,24 +32,24 @@ export class TodoListService {
     return todoLists;
   }
 
-  async createTodoList(id: number, createTodoListDetails: CreateTodoListDto) {
+  async createList(id: number, createListDetails: CreateListDto) {
     const user = await this.userRepository.findOneBy({ id });
 
     if (!user)
       throw new HttpException('User not found.', HttpStatus.BAD_REQUEST);
 
-    const newTodoList = this.todoListsRepository.create({
-      ...createTodoListDetails,
+    const newList = this.todoListsRepository.create({
+      ...createListDetails,
       user,
     });
 
-    return await this.todoListsRepository.save(newTodoList);
+    return await this.todoListsRepository.save(newList);
   }
 
-  async updateTodoList(
+  async updateList(
     userId: number,
     id: number,
-    updateTodoListDetails: UpdateTodoListDto,
+    updateListDetails: UpdateListDto,
   ) {
     const user = await this.userRepository.findOneBy({ id: userId });
     const todoList = await this.todoListsRepository.findOneBy({ id });
@@ -65,11 +62,11 @@ export class TodoListService {
 
     return await this.todoListsRepository.update(
       { id },
-      { ...updateTodoListDetails },
+      { ...updateListDetails },
     );
   }
 
-  async deleteTodoList(id: number, userId: number) {
+  async deleteList(id: number, userId: number) {
     return await MysqlDataSource.createQueryBuilder()
       .delete()
       .from('todo_lists')

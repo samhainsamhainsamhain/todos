@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTodoDto, UpdateTodoDto } from 'src/todos/todo.dto';
 
 import { Todos } from 'src/typeorm/entities/Todo';
-import { TodoList } from 'src/typeorm/entities/TodoList';
+import { List } from 'src/typeorm/entities/List';
 
 @Injectable()
 export class TodosService {
@@ -13,8 +13,8 @@ export class TodosService {
     @InjectRepository(Todos)
     private todosRepository: Repository<Todos>,
 
-    @InjectRepository(TodoList)
-    private todoListsRepository: Repository<TodoList>,
+    @InjectRepository(List)
+    private todoListsRepository: Repository<List>,
   ) {}
 
   async fetchTodos(id: number) {

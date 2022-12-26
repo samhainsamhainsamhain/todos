@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import todolist from '../../assets/todolist.svg';
+import list from '../../assets/list.svg';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ const Dashboard = () => {
       <h2>Welcome to your Dashboard!</h2>
       <ul>
         <li className="app_card" onClick={() => navigate('lists')}>
-          <img src={todolist}></img>
-          <span>Todolists</span>
+          <img src={list}></img>
+          <span>Lists</span>
         </li>
       </ul>
     </div>

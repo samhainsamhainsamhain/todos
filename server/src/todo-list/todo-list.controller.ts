@@ -8,38 +8,38 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateTodoListDto } from 'src/todo-list/todoList.dto';
-import { TodoListService } from 'src/todo-list/todo-list.service';
+import { CreateListDto } from 'src/todo-list/todoList.dto';
+import { ListService } from 'src/todo-list/todo-list.service';
 import { Routes } from 'src/utils/constants';
 
 @Controller(Routes.LISTS)
-export class TodoListController {
-  constructor(private todoListService: TodoListService) {}
+export class ListController {
+  constructor(private todoListService: ListService) {}
   @Get()
-  async fetchTodoListsByUserId(@Headers('userid') userId: number) {
-    return await this.todoListService.fetchTodoLists(userId);
+  async fetchListsByUserId(@Headers('userid') userId: number) {
+    return await this.todoListService.fetchLists(userId);
   }
 
   @Post()
-  createTodoList(
+  createList(
     @Headers('userid') userId: number,
-    @Body() createTodoListDto: CreateTodoListDto,
+    @Body() createListDto: CreateListDto,
   ) {
-    return this.todoListService.createTodoList(userId, createTodoListDto);
+    return this.todoListService.createList(userId, createListDto);
   }
 
   @Put(':id')
-  async updateTodoList(
+  async updateList(
     @Headers('userid') userId: number,
     @Param('id') id: number,
-    @Body() updateTodoListDto: CreateTodoListDto,
+    @Body() updateListDto: CreateListDto,
   ) {
-    await this.todoListService.updateTodoList(userId, id, updateTodoListDto);
-    return updateTodoListDto;
+    await this.todoListService.updateList(userId, id, updateListDto);
+    return updateListDto;
   }
 
   @Delete(':id')
-  deleteTodoList(@Headers('userid') userId: number, @Param('id') id: number) {
-    return this.todoListService.deleteTodoList(id, userId);
+  deleteList(@Headers('userid') userId: number, @Param('id') id: number) {
+    return this.todoListService.deleteList(id, userId);
   }
 }

@@ -5,10 +5,10 @@ import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
 
 import { Todos } from 'src/typeorm/entities/Todo';
-import { TodoList } from 'src/typeorm/entities/TodoList';
+import { List } from 'src/typeorm/entities/List';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Todos, TodoList])],
+  imports: [TypeOrmModule.forFeature([Todos, List])],
   controllers: [TodosController],
   providers: [TodosService],
 })

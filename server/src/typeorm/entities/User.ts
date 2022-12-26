@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TodoList } from './TodoList';
+import { List } from './List';
 
 @Entity({
   name: 'users',
@@ -23,6 +23,6 @@ export class User {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @OneToMany(() => TodoList, (todoList) => todoList.user)
-  todoLists: TodoList[];
+  @OneToMany(() => List, (todoList) => todoList.user)
+  todoLists: List[];
 }

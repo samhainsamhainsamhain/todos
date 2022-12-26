@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersModule } from './users/users.module';
-import { TodoListModule } from './todo-list/todo-list.module';
+import { ListModule } from './todo-list/todo-list.module';
 import { TodosModule } from './todos/todos.module';
 
 import { AuthModule } from './auth/auth.module';
@@ -15,7 +15,7 @@ import MysqlDataSource from './typeorm/MysqlDataSource';
   imports: [
     AuthModule,
     UsersModule,
-    TodoListModule,
+    ListModule,
     TodosModule,
     PassportModule.register({ session: true }),
     TypeOrmModule.forRoot({

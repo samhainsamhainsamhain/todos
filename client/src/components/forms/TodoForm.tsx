@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { postTodo } from '../../api/api';
 import { fetchTodosThunk } from '../../store/todos/todosThunk';
-import { CreateTodoParams } from '../../types/TodoItem';
+import { CreateTodoParams } from '../../types/Todo';
 import { useAppDispatch } from '../../utils/hooks/redux';
 
 interface ITodoForm {
@@ -14,7 +14,7 @@ const TodoItemForm = ({ setShowCreateTodoForm }: ITodoForm) => {
   const dispatch = useAppDispatch();
   const { id: listid } = useParams();
 
-  async function createTodoListHandler(data: CreateTodoParams) {
+  async function createListHandler(data: CreateTodoParams) {
     try {
       await postTodo(data, listid!);
       await dispatch(fetchTodosThunk(listid!));
@@ -27,7 +27,7 @@ const TodoItemForm = ({ setShowCreateTodoForm }: ITodoForm) => {
   return (
     <div className="TodoForm">
       <h2>Create new Todo</h2>
-      <form onSubmit={handleSubmit(createTodoListHandler)}>
+      <form onSubmit={handleSubmit(createListHandler)}>
         <label htmlFor="title">Title</label>
         <input id="title" {...register('title', { required: true })} />
         <label htmlFor="description">Description</label>

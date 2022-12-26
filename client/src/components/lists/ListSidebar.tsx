@@ -1,13 +1,13 @@
 import React from 'react';
 import { TbEdit } from 'react-icons/tb';
 
-const TodoListSidebar = () => {
+const ListSidebar = () => {
   return (
     <div>
-      TodoListSidebar
+      ListSidebar
       <TbEdit size={40} />
     </div>
   );
 };
 
-export default TodoListSidebar;
+export default ListSidebar;

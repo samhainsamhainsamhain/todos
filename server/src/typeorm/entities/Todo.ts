@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TodoList } from './TodoList';
+import { List } from './List';
 
 @Entity({
   name: 'todos',
@@ -23,8 +23,8 @@ export class Todos {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: string;
 
-  @ManyToOne(() => TodoList, (todoList) => todoList.todos, {
+  @ManyToOne(() => List, (todoList) => todoList.todos, {
     onDelete: 'CASCADE',
   })
-  todoList: TodoList;
+  todoList: List;
 }

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TodoList } from '../../types/TodoList';
+import { List } from '../../types/List';
 import { fetchTodosThunk } from './todosThunk';
-import { TodoItem, TodoItemEventPayload } from '../../types/TodoItem';
+import { TodoItem, TodoItemEventPayload } from '../../types/Todo';
 
 export interface TodosState {
   todos: TodoItem[];
@@ -24,10 +24,10 @@ export const todosSlice = createSlice({
       const newTodo = action.payload.todo;
       const oldTodo = state.todos.find((todo) => todo.id === newTodo.id);
       if (!oldTodo) return;
-      const oldTodoListIndex = state.todos.findIndex(
+      const oldListIndex = state.todos.findIndex(
         (todo) => todo.id === newTodo.id
       );
-      state.todos[oldTodoListIndex] = newTodo;
+      state.todos[oldListIndex] = newTodo;
     },
     removeTodo: (state, action: PayloadAction<TodoItem>) => {
       const newTodo = action.payload;
@@ -42,16 +42,13 @@ export const todosSlice = createSlice({
   extraReducers: {
     [fetchTodosThunk.fulfilled.type]: (
       state,
-      action: PayloadAction<TodoList[]>
+      action: PayloadAction<List[]>
     ) => {
       state.isLoading = false;
       state.error = '';
       state.todos = action.payload;
     },
-    [fetchTodosThunk.pending.type]: (
-      state,
-      action: PayloadAction<TodoList[]>
-    ) => {
+    [fetchTodosThunk.pending.type]: (state, action: PayloadAction<List[]>) => {
       state.isLoading = true;
     },
     [fetchTodosThunk.rejected.type]: (state, action: PayloadAction<string>) => {

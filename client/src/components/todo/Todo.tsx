@@ -5,7 +5,7 @@ import {
   fetchTodosThunk,
   updateTodoThunk,
 } from '../../store/todos/todosThunk';
-import { TodoItem } from '../../types/TodoItem';
+import { TodoItem } from '../../types/Todo';
 import { useAppDispatch } from '../../utils/hooks/redux';
 
 interface ITodo {

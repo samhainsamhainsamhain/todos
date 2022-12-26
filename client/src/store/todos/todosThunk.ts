@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { deleteTodo, getTodosByListId, updateTodo } from '../../api/api';
-import { DeleteTodoParams, UpdateTodoParams } from '../../types/TodoItem';
+import { DeleteTodoParams, UpdateTodoParams } from '../../types/Todo';
 
 export const fetchTodosThunk = createAsyncThunk(
   'todos/fetchAll',

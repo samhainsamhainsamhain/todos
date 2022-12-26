@@ -1,19 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  deleteTodoList,
-  getTodoListByUserId,
-  updateTodoList,
-} from '../../api/api';
-import {
-  DeleteTodoListParams,
-  UpdateTodoListParams,
-} from '../../types/TodoList';
+import { deleteList, getListByUserId, updateList } from '../../api/api';
+import { DeleteListParams, UpdateListParams } from '../../types/List';
 
-export const fetchTodoListsThunk = createAsyncThunk(
+export const fetchListsThunk = createAsyncThunk(
   'todoLists/fetchAll',
   async (userId: string, thunkAPI) => {
     try {
-      const response = await getTodoListByUserId(userId);
+      const response = await getListByUserId(userId);
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
@@ -21,11 +14,11 @@ export const fetchTodoListsThunk = createAsyncThunk(
   }
 );
 
-export const updateTodoListThunk = createAsyncThunk(
-  'todoLists/updateTodoList',
-  async (data: UpdateTodoListParams, thunkAPI) => {
+export const updateListThunk = createAsyncThunk(
+  'todoLists/updateList',
+  async (data: UpdateListParams, thunkAPI) => {
     try {
-      const response = await updateTodoList(data);
+      const response = await updateList(data);
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
@@ -33,11 +26,11 @@ export const updateTodoListThunk = createAsyncThunk(
   }
 );
 
-export const deleteTodoListThunk = createAsyncThunk(
-  'todoLists/deleteTodoList',
-  async (data: DeleteTodoListParams, thunkAPI) => {
+export const deleteListThunk = createAsyncThunk(
+  'todoLists/deleteList',
+  async (data: DeleteListParams, thunkAPI) => {
     try {
-      const response = await deleteTodoList(data);
+      const response = await deleteList(data);
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
