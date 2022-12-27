@@ -14,29 +14,16 @@ const ListPanel = () => {
     (state) => state.todoListsSlice
   );
 
-  const [showListForm, setShowListForm] = useState(false);
-
   useEffect(() => {
     if (!user) return navigate('/login');
 
     dispatch(fetchListsThunk(user.id));
   }, [user]);
 
-  const ShowListFormHandler = () => {
-    if (showListForm) {
-      return <ListForm setShowListForm={setShowListForm} />;
-    } else
-      return (
-        <button onClick={() => setShowListForm(true)}>Create new List</button>
-      );
-  };
-
   return (
     <div className="lists">
-      <h2>Todo Lists</h2>
-      <div>
-        <ShowListFormHandler />
-      </div>
+      <h2 className="lists_main">Lists</h2>
+      <ListForm />
       {todoLists.map((todoList) => {
         return (
           <ListItem
