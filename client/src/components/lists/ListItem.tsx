@@ -8,6 +8,8 @@ import {
   updateListThunk,
 } from '../../store/todoLists/todoListsThunk';
 import { AuthContext } from '../../utils/AuthContext';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
 
 interface IList {
   todoListItem: List;
@@ -19,7 +21,7 @@ const ListItem = ({ todoListItem }: IList) => {
   const { user } = useContext(AuthContext);
   const { id, title, createdAt } = todoListItem;
   const date = new Date(createdAt);
-  const [todoListTitle, setListTitle] = useState(todoListItem.title);
+  const [listTitle, setListTitle] = useState(title);
   const [showUpdateListForm, setShowUpdateListForm] = useState(false);
 
   const deleteListHandler = async () => {
@@ -27,38 +29,49 @@ const ListItem = ({ todoListItem }: IList) => {
     dispatch(fetchListsThunk(user!.id));
   };
 
-  const updateListHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await dispatch(
-      updateListThunk({ id, title: todoListTitle, userid: user!.id })
-    );
+  const updateListHandler = async () => {
+    if (title === listTitle) return;
+    await dispatch(updateListThunk({ id, title: listTitle, userid: user!.id }));
     dispatch(fetchListsThunk(user!.id));
     setShowUpdateListForm(false);
   };
 
-  const updateListForm = () => {
-    return (
-      <form onSubmit={updateListHandler}>
-        <input
-          value={todoListTitle}
-          onChange={(e) => setListTitle(e.currentTarget.value)}
-        />
-        <button type="submit">Save</button>
-      </form>
-    );
+  const onListClickHandler = () => {
+    if (showUpdateListForm) return;
+    navigate(`/lists/${id}`);
   };
 
   return (
-    <div>
-      {!showUpdateListForm ? (
-        <h3 onClick={() => navigate(`/lists/${id}`)}>{title}</h3>
-      ) : (
-        updateListForm()
-      )}
-
+    <div className="list">
+      <input
+        className={'list_title' + ' ' + (showUpdateListForm ? 'editable' : '')}
+        value={listTitle}
+        spellCheck={false}
+        onBlur={() => {
+          updateListHandler();
+        }}
+        onChange={(e) => {
+          setListTitle(e.currentTarget.value);
+        }}
+        onClick={onListClickHandler}
+      />
       <p>Created: {date.toDateString()}</p>
-      <button onClick={() => setShowUpdateListForm(true)}>Edit List</button>
-      <button onClick={deleteListHandler}>Delete List</button>
+      <div className="list_controls">
+        <button
+          className="btn btn_secondary btn_edit"
+          onClick={() => {
+            setShowUpdateListForm(true);
+          }}
+        >
+          <EditIcon />
+        </button>
+        <button
+          className="btn btn_secondary btn_remove"
+          onClick={deleteListHandler}
+        >
+          <RemoveIcon />
+        </button>
+      </div>
     </div>
   );
 };
