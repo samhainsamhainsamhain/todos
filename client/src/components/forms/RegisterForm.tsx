@@ -72,7 +72,7 @@ const RegisterForm = ({}: IRegistration) => {
             })}
           />
           {error ? <SignUpError /> : null}
-          <button className="submit" type="submit" disabled={!isValid}>
+          <button className="btn_submit" type="submit" disabled={!isValid}>
             Sign Up
           </button>
         </form>

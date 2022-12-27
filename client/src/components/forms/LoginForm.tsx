@@ -58,7 +58,7 @@ const LoginForm = ({}: ILogin) => {
             {...register('password', { required: true })}
           />
           {error ? <LoginError /> : null}
-          <button className="submit" type="submit" disabled={!isValid}>
+          <button className="btn_submit" type="submit" disabled={!isValid}>
             Sign In
           </button>
         </form>

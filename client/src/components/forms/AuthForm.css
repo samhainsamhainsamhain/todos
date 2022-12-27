@@ -36,22 +36,6 @@
       padding: 5px;
       font-size: 1.2rem;
     }
-
-    .submit {
-      background-color: #6060ff;
-      color: white;
-      font-size: 20px;
-      margin-top: 10px;
-      padding: 10px;
-
-      &:hover {
-        background-color: #3030ff;
-      }
-
-      &:disabled {
-        background-color: #9a9a9a;
-      }
-    }
   }
 
   &_error {
