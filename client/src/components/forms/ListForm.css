@@ -1,0 +1,29 @@
+.ListForm {
+  /* background-color: aliceblue; */
+  width: 100%;
+  margin-bottom: 16px;
+
+  form {
+    display: flex;
+    box-shadow: 6px 5px 4px #888888;
+    border-radius: 8px;
+    /* box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); */
+  }
+
+  &_input {
+    width: 100%;
+    font-size: 24px;
+    padding: 8px;
+    border: none;
+    outline: none;
+    border-radius: 8px 0 0 8px;
+  }
+
+  &_submit {
+    font-size: 24px;
+    padding: 8px;
+    margin: 0;
+    border-radius: 0 8px 8px 0;
+    transition: background-color 0.2s;
+  }
+}
