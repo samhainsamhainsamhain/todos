@@ -5,3 +5,73 @@
   min-height: 100vh;
   background-color: #dcdcdc;
 }
+
+.btn {
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &_main {
+    background-color: #046b00;
+    color: white;
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  &_secondary {
+    border: none;
+    background-color: #00000000;
+  }
+
+  &_submit {
+    background-color: #6060ff;
+    color: white;
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 10px;
+
+    &:hover {
+      background-color: #3030ff;
+    }
+
+    &:disabled {
+      background-color: #9a9a9a;
+    }
+  }
+
+  &_remove {
+    &:hover {
+      svg {
+        fill: #fc4747;
+      }
+    }
+
+    &:disabled {
+      background-color: #9a9a9a;
+    }
+  }
+
+  &_edit {
+    &:hover {
+      svg {
+        fill: #3030ff;
+      }
+    }
+
+    &:disabled {
+      background-color: #9a9a9a;
+    }
+  }
+
+  svg {
+    background-color: #00000000;
+    width: 32px;
+    height: 32px;
+    fill: #636363;
+    transition: fill 0.3s;
+  }
+}
