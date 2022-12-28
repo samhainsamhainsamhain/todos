@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { List } from '../../types/List';
 import { useAppDispatch } from '../../utils/hooks/redux';
@@ -22,7 +22,12 @@ const ListItem = ({ todoListItem }: IList) => {
   const { id, title, createdAt } = todoListItem;
   const date = new Date(createdAt);
   const [listTitle, setListTitle] = useState(title);
-  const [showUpdateListForm, setShowUpdateListForm] = useState(false);
+  const [listIsEditable, setListIsEditable] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [listIsEditable]);
 
   const deleteListHandler = async () => {
     await dispatch(deleteListThunk({ id, userid: user!.id }));
@@ -30,21 +35,22 @@ const ListItem = ({ todoListItem }: IList) => {
   };
 
   const updateListHandler = async () => {
+    setListIsEditable(false);
     if (title === listTitle) return;
     await dispatch(updateListThunk({ id, title: listTitle, userid: user!.id }));
     dispatch(fetchListsThunk(user!.id));
-    setShowUpdateListForm(false);
   };
 
   const onListClickHandler = () => {
-    if (showUpdateListForm) return;
+    if (listIsEditable) return;
     navigate(`/lists/${id}`);
   };
 
   return (
     <div className="list">
       <input
-        className={'list_title' + ' ' + (showUpdateListForm ? 'editable' : '')}
+        className={'list_title' + ' ' + (listIsEditable ? 'editable' : '')}
+        ref={inputRef}
         value={listTitle}
         spellCheck={false}
         onBlur={() => {
@@ -60,7 +66,7 @@ const ListItem = ({ todoListItem }: IList) => {
         <button
           className="btn btn_secondary btn_edit"
           onClick={() => {
-            setShowUpdateListForm(true);
+            setListIsEditable(true);
           }}
         >
           <EditIcon />
