@@ -1,23 +1,20 @@
 .lists {
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
   flex-direction: column;
   max-width: 800px;
-  padding: 0 2em;
+  padding: 16px;
   margin: 0 auto;
-  /* background-color: aqua; */
 }
 
 .list {
-  background-color: aliceblue;
+  background-color: #f0f8ff;
   padding: 8px;
   margin-top: 8px;
   margin-bottom: 16px;
   border-radius: 8px;
-  box-shadow: 5px 10px 8px #888888;
+  box-shadow: 2px 4px 4px #888888;
   transition: all 0.5s;
-  /* transition: box-shadow 0.5s; */
+  border: 1px solid #888888;
 
   &_title {
     background-color: transparent;
@@ -31,7 +28,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgba(195, 195, 255, 0.15);
+      background-color: #c3c3ff4d;
     }
 
     &.editable {
@@ -54,6 +51,6 @@
   &:hover {
     margin-top: 0px;
     margin-bottom: 24px;
-    box-shadow: 15px 10px 8px #888888;
+    box-shadow: 4px 8px 8px #888888;
   }
 }

@@ -22,7 +22,6 @@ const ListPanel = () => {
 
   return (
     <div className="lists">
-      <h2 className="lists_main">Lists</h2>
       <ListForm />
       {todoLists.map((todoList) => {
         return (
