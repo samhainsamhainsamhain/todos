@@ -7,6 +7,7 @@
 }
 
 .list {
+  position: relative;
   background-color: #f0f8ff;
   padding: 8px;
   margin-top: 8px;
@@ -40,7 +41,11 @@
   }
 
   &_controls {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
     opacity: 0;
+    margin: 10px;
     transition: opacity 0.2s;
   }
 
