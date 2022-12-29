@@ -9,7 +9,6 @@ const TodosPanel = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [showCreateTodoForm, setShowCreateTodoForm] = useState(false);
   const { lists } = useAppSelector((state) => state.listsSlice);
   const { todos, isLoading, error } = useAppSelector(
     (state) => state.todosSlice
@@ -27,21 +26,10 @@ const TodosPanel = () => {
     }
   }, []);
 
-  const ShowTodoFormHandler = () => {
-    if (showCreateTodoForm) {
-      return <TodoForm setShowCreateTodoForm={setShowCreateTodoForm} />;
-    } else
-      return (
-        <button onClick={() => setShowCreateTodoForm(true)}>
-          Create new Todo
-        </button>
-      );
-  };
-
   return (
     <div className="todos">
       <h2 className="todos_title">{list?.title}</h2>
-      {ShowTodoFormHandler()}
+      <TodoForm />
       <ul className="todos_list">
         {todos.map((todo) => {
           return <Todo todo={todo} key={todo.createdAt.toString()} />;
