@@ -11,7 +11,7 @@ const ListPanel = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { lists, isLoading, error } = useAppSelector(
-    (state) => state.todoListsSlice
+    (state) => state.listsSlice
   );
 
   useEffect(() => {

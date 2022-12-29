@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { List } from '../../types/List';
+import { TList } from '../../types/List';
 import { useAppDispatch } from '../../utils/hooks/redux';
 import {
   deleteListThunk,
@@ -12,7 +12,7 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
 
 interface IList {
-  list: List;
+  list: TList;
 }
 
 const List = ({ list }: IList) => {

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { List, ListEventPayload } from '../../types/List';
+import { TList, ListEventPayload } from '../../types/List';
 import { fetchListsThunk } from './listsThunk';
 
 export interface ListsState {
-  lists: List[];
+  lists: TList[];
   isLoading: boolean;
   error: string;
 }
@@ -28,7 +28,7 @@ export const listsSlice = createSlice({
       );
       state.lists[oldListIndex] = newlist;
     },
-    removeList: (state, action: PayloadAction<List>) => {
+    removeList: (state, action: PayloadAction<TList>) => {
       const newlist = action.payload;
       const oldList = state.lists.find((list) => list.id === newlist.id);
       if (!oldList) return;
@@ -41,13 +41,13 @@ export const listsSlice = createSlice({
   extraReducers: {
     [fetchListsThunk.fulfilled.type]: (
       state,
-      action: PayloadAction<List[]>
+      action: PayloadAction<TList[]>
     ) => {
       state.isLoading = false;
       state.error = '';
       state.lists = action.payload;
     },
-    [fetchListsThunk.pending.type]: (state, action: PayloadAction<List[]>) => {
+    [fetchListsThunk.pending.type]: (state, action: PayloadAction<TList[]>) => {
       state.isLoading = true;
     },
     [fetchListsThunk.rejected.type]: (state, action: PayloadAction<string>) => {

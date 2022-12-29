@@ -10,19 +10,19 @@ const TodosPanel = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showCreateTodoForm, setShowCreateTodoForm] = useState(false);
-  const { todoLists } = useAppSelector((state) => state.todoListsSlice);
+  const { lists } = useAppSelector((state) => state.listsSlice);
   const { todos, isLoading, error } = useAppSelector(
     (state) => state.todosSlice
   );
 
-  const todoList = todoLists.find((tl) => tl.id === id);
+  const list = lists.find((l) => l.id === id);
 
   useEffect(() => {
     dispatch(fetchTodosThunk(id!));
   }, []);
 
   useEffect(() => {
-    if (!todoList) {
+    if (!list) {
       return navigate('/');
     }
   }, []);
@@ -40,7 +40,7 @@ const TodosPanel = () => {
 
   return (
     <div className="todos">
-      <h2 className="todos_title">{todoList?.title}</h2>
+      <h2 className="todos_title">{list?.title}</h2>
       {ShowTodoFormHandler()}
       <ul className="todos_list">
         {todos.map((todo) => {

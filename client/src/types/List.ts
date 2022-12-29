@@ -1,4 +1,4 @@
-export type List = {
+export type TList = {
   id: string;
   title: string;
   createdAt: Date;
@@ -9,7 +9,7 @@ export type CreateListParams = {
 };
 
 export type ListEventPayload = {
-  todoList: List;
+  list: TList;
 };
 
 export type UpdateListParams = {
