@@ -1,0 +1,56 @@
+.TodoForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 400px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  margin: 0 auto;
+
+  &_input {
+    width: 100%;
+    font-size: 24px;
+    padding: 8px;
+    outline: none;
+    border: 1px solid black;
+
+    &:nth-child(1) {
+      border-bottom: none;
+      border-radius: 8px;
+      z-index: 100;
+
+      &.hidden {
+        border-bottom: 1px solid black;
+      }
+
+      &.shown {
+        border-radius: 8px 8px 0 0;
+      }
+    }
+
+    &:nth-child(2) {
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      position: absolute;
+      z-index: 1;
+
+      &.hidden {
+        top: 0px;
+        border-radius: 8px;
+      }
+
+      &.shown {
+        top: 40px;
+      }
+    }
+  }
+
+  &_submit {
+    font-size: 24px;
+    padding: 8px;
+    margin: 0;
+    border-radius: 0 8px 8px 0;
+    transition: background-color 0.2s;
+  }
+}

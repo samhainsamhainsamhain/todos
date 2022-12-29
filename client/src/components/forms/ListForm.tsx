@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { postList } from '../../api/api';
 import { fetchListsThunk } from '../../store/lists/listsThunk';
@@ -30,7 +30,7 @@ const ListForm = ({}: IList) => {
 
   return (
     <div className="ListForm">
-      <form onSubmit={handleSubmit((data) => createListHandler(data))}>
+      <form onSubmit={handleSubmit(createListHandler)}>
         <input
           className="ListForm_input"
           placeholder="List..."
