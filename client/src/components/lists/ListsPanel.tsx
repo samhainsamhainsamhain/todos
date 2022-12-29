@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchListsThunk } from '../../store/todoLists/todoListsThunk';
+import { fetchListsThunk } from '../../store/lists/listsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
 import ListForm from '../forms/ListForm';
-import ListItem from './ListItem';
+import ListItem from './List';
 
 const ListPanel = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { todoLists, isLoading, error } = useAppSelector(
+  const { lists, isLoading, error } = useAppSelector(
     (state) => state.todoListsSlice
   );
 
@@ -23,13 +23,8 @@ const ListPanel = () => {
   return (
     <div className="lists">
       <ListForm />
-      {todoLists.map((todoList) => {
-        return (
-          <ListItem
-            todoListItem={todoList}
-            key={todoList.createdAt.toString()}
-          />
-        );
+      {lists.map((list) => {
+        return <ListItem list={list} key={list.createdAt.toString()} />;
       })}
       {isLoading && <h3>loading...</h3>}
       {error && <h3>{error}</h3>}
