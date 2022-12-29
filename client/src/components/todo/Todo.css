@@ -1,0 +1,71 @@
+.todos {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  padding: 16px;
+  margin: 0 auto;
+
+  &_title {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  &_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  background-color: #f0f8ff;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+  box-shadow: 2px 4px 4px #888888;
+  transition: all 0.5s;
+  border: 1px solid #888888;
+
+  &_title {
+    background-color: transparent;
+    width: 100%;
+    font-size: 24px;
+    padding: 8px;
+    margin: 0;
+    border: none;
+    outline: none;
+    transition: background-color 0.2s;
+    caret-color: transparent;
+    cursor: pointer;
+
+    &.editable {
+      background-color: white;
+      border: 1px solid #cecece;
+      caret-color: unset;
+      cursor: unset;
+    }
+  }
+
+  &_description {
+    padding: 8px;
+  }
+
+  &_controls {
+    opacity: 0;
+    transition: opacity 0.2s;
+    margin-top: auto;
+    align-self: flex-end;
+  }
+
+  &:hover &_controls {
+    opacity: 1;
+  }
+
+  &:hover {
+    box-shadow: 4px 8px 8px #888888;
+  }
+}

@@ -39,12 +39,14 @@ const TodosPanel = () => {
   };
 
   return (
-    <div>
-      <h2>{todoList?.title}</h2>
+    <div className="todos">
+      <h2 className="todos_title">{todoList?.title}</h2>
       {ShowTodoFormHandler()}
-      {todos.map((todo) => {
-        return <Todo todo={todo} key={todo.createdAt.toString()} />;
-      })}
+      <ul className="todos_list">
+        {todos.map((todo) => {
+          return <Todo todo={todo} key={todo.createdAt.toString()} />;
+        })}
+      </ul>
     </div>
   );
 };
