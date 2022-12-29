@@ -75,3 +75,11 @@
     transition: fill 0.3s;
   }
 }
+
+.textarea {
+  resize: none;
+  min-height: 50px;
+  border: none;
+  background-color: transparent;
+  color: black;
+}
