@@ -41,13 +41,6 @@
     transition: background-color 0.2s;
     caret-color: transparent;
     cursor: pointer;
-
-    &.editable {
-      background-color: white;
-      border: 1px solid #cecece;
-      caret-color: unset;
-      cursor: unset;
-    }
   }
 
   &_description {

@@ -9,6 +9,7 @@ import { TodoItem } from '../../types/Todo';
 import { useAppDispatch } from '../../utils/hooks/redux';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
+import Textarea from '../ui/Textarea';
 
 interface ITodo {
   todo: TodoItem;
@@ -20,14 +21,12 @@ const Todo = ({ todo }: ITodo) => {
   const { id, title, description, createdAt } = todo;
   const [todoTitle, setTodoTitle] = useState(todo.title);
   const [todoDescription, setTodoDescription] = useState(todo.description);
-  const [todoIsEditable, setTodoIsEditable] = useState(false);
+  const [todoIsReadOnly, setTodoIsReadOnly] = useState(true);
   const todoRef = useRef<HTMLDivElement>(null);
-  const todoTitleRef = useRef<HTMLTextAreaElement>(null);
-  const todoDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     todoRef.current?.focus();
-  }, [setTodoIsEditable]);
+  }, [setTodoIsReadOnly]);
 
   const deleteTodoHandler = async () => {
     await dispatch(deleteTodoThunk({ id, listid: listid! }));
@@ -35,7 +34,7 @@ const Todo = ({ todo }: ITodo) => {
   };
 
   const updateTodoHandler = async () => {
-    setTodoIsEditable(false);
+    setTodoIsReadOnly(true);
     if (todoTitle === title && todoDescription === description) return;
 
     await dispatch(
@@ -56,13 +55,6 @@ const Todo = ({ todo }: ITodo) => {
     updateTodoHandler();
   };
 
-  const resizeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const target = e.target as HTMLTextAreaElement;
-    if (e.currentTarget.scrollHeight > target.clientHeight) {
-      e.currentTarget.style.height = `${target.scrollHeight + 8}px`;
-    }
-  };
-
   return (
     <div
       className="todo"
@@ -71,37 +63,25 @@ const Todo = ({ todo }: ITodo) => {
         handleBlur(e);
       }}
     >
-      <textarea
-        className={
-          'todo_title textarea' + ' ' + (todoIsEditable ? 'editable' : '')
-        }
-        ref={todoTitleRef}
+      <Textarea
+        classname={'todo_title'}
+        placeholder={'Title...'}
         value={todoTitle}
-        spellCheck={false}
-        onChange={(e) => {
-          resizeTextarea(e);
-          setTodoTitle(e.currentTarget.value);
-        }}
-        disabled={!todoIsEditable}
+        onChangeCallback={setTodoTitle}
+        isReadOnly={todoIsReadOnly}
       />
-      <textarea
-        className={
-          'todo_description textarea' + ' ' + (todoIsEditable ? 'editable' : '')
-        }
-        ref={todoDescriptionRef}
+      <Textarea
+        classname={'todo_description'}
+        placeholder={'Description...'}
         value={todoDescription}
-        spellCheck={false}
-        onChange={(e) => {
-          resizeTextarea(e);
-          setTodoDescription(e.currentTarget.value);
-        }}
-        disabled={!todoIsEditable}
+        onChangeCallback={setTodoDescription}
+        isReadOnly={todoIsReadOnly}
       />
       <div className="todo_controls">
         <button
           className="btn btn_secondary btn_edit"
           onClick={() => {
-            setTodoIsEditable(true);
+            setTodoIsReadOnly(false);
           }}
         >
           <EditIcon />

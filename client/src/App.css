@@ -77,9 +77,18 @@
 }
 
 .textarea {
+  box-sizing: border-box;
   resize: none;
-  min-height: 50px;
-  border: none;
   background-color: transparent;
   color: black;
+  outline: none;
+  border: 1px solid #cecece00;
+  overflow: hidden;
+
+  &.editable {
+    background-color: white;
+    border: 1px solid #cecece;
+    caret-color: unset;
+    cursor: unset;
+  }
 }
