@@ -23,7 +23,7 @@ const ListItem = ({ todoListItem }: IList) => {
   const date = new Date(createdAt);
   const [listTitle, setListTitle] = useState(title);
   const [listIsEditable, setListIsEditable] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -48,8 +48,10 @@ const ListItem = ({ todoListItem }: IList) => {
 
   return (
     <div className="list">
-      <input
-        className={'list_title' + ' ' + (listIsEditable ? 'editable' : '')}
+      <textarea
+        className={
+          'list_title textarea' + ' ' + (listIsEditable ? 'editable' : '')
+        }
         ref={inputRef}
         value={listTitle}
         spellCheck={false}

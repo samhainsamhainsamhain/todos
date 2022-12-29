@@ -1,45 +1,41 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { List, ListEventPayload } from '../../types/List';
-import { fetchListsThunk } from './todoListsThunk';
+import { fetchListsThunk } from './listsThunk';
 
 export interface ListsState {
-  todoLists: List[];
+  lists: List[];
   isLoading: boolean;
   error: string;
 }
 
 const initialState: ListsState = {
-  todoLists: [],
+  lists: [],
   isLoading: false,
   error: '',
 };
 
-export const todoListsSlice = createSlice({
-  name: 'todoLists',
+export const listsSlice = createSlice({
+  name: 'lists',
   initialState,
   reducers: {
     editList: (state, action: PayloadAction<ListEventPayload>) => {
-      const newTodolist = action.payload.todoList;
-      const oldList = state.todoLists.find(
-        (todoList) => todoList.id === newTodolist.id
-      );
+      const newlist = action.payload.list;
+      const oldList = state.lists.find((list) => list.id === newlist.id);
       if (!oldList) return;
-      const oldListIndex = state.todoLists.findIndex(
-        (todoList) => todoList.id === newTodolist.id
+      const oldListIndex = state.lists.findIndex(
+        (lists) => lists.id === newlist.id
       );
-      state.todoLists[oldListIndex] = newTodolist;
+      state.lists[oldListIndex] = newlist;
     },
     removeList: (state, action: PayloadAction<List>) => {
-      const newTodolist = action.payload;
-      const oldList = state.todoLists.find(
-        (todoList) => todoList.id === newTodolist.id
-      );
+      const newlist = action.payload;
+      const oldList = state.lists.find((list) => list.id === newlist.id);
       if (!oldList) return;
-      const oldListIndex = state.todoLists.findIndex(
-        (todoList) => todoList.id === newTodolist.id
+      const oldListIndex = state.lists.findIndex(
+        (list) => list.id === newlist.id
       );
-      state.todoLists[oldListIndex] = newTodolist;
+      state.lists[oldListIndex] = newlist;
     },
   },
   extraReducers: {
@@ -49,7 +45,7 @@ export const todoListsSlice = createSlice({
     ) => {
       state.isLoading = false;
       state.error = '';
-      state.todoLists = action.payload;
+      state.lists = action.payload;
     },
     [fetchListsThunk.pending.type]: (state, action: PayloadAction<List[]>) => {
       state.isLoading = true;
@@ -61,4 +57,4 @@ export const todoListsSlice = createSlice({
   },
 });
 
-export default todoListsSlice.reducer;
+export default listsSlice.reducer;
