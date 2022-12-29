@@ -9,7 +9,7 @@ import { useAppDispatch } from '../../utils/hooks/redux';
 interface ITodoForm {}
 
 const TodoItemForm = ({}: ITodoForm) => {
-  const [formInFocus, setFormInFocus] = useState(true);
+  const [formInFocus, setFormInFocus] = useState(false);
   const { register, handleSubmit, formState, resetField } =
     useForm<CreateTodoParams>();
   const dispatch = useAppDispatch();
