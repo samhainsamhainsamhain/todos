@@ -6,20 +6,20 @@ import {
   deleteListThunk,
   fetchListsThunk,
   updateListThunk,
-} from '../../store/todoLists/todoListsThunk';
+} from '../../store/lists/listsThunk';
 import { AuthContext } from '../../utils/AuthContext';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
 
 interface IList {
-  todoListItem: List;
+  list: List;
 }
 
-const ListItem = ({ todoListItem }: IList) => {
+const List = ({ list }: IList) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user } = useContext(AuthContext);
-  const { id, title, createdAt } = todoListItem;
+  const { id, title, createdAt } = list;
   const date = new Date(createdAt);
   const [listTitle, setListTitle] = useState(title);
   const [listIsEditable, setListIsEditable] = useState(false);
@@ -84,4 +84,4 @@ const ListItem = ({ todoListItem }: IList) => {
   );
 };
 
-export default ListItem;
+export default List;

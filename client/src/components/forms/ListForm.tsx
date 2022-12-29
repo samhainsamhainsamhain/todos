@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { postList } from '../../api/api';
-import { fetchListsThunk } from '../../store/todoLists/todoListsThunk';
+import { fetchListsThunk } from '../../store/lists/listsThunk';
 import { CreateListParams } from '../../types/List';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch } from '../../utils/hooks/redux';
