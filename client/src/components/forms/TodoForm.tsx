@@ -6,25 +6,21 @@ import { fetchTodosThunk } from '../../store/todos/todosThunk';
 import { CreateTodoParams } from '../../types/Todo';
 import { useAppDispatch } from '../../utils/hooks/redux';
 
-interface ITodoForm {}
-
-const TodoItemForm = ({}: ITodoForm) => {
+const TodoItemForm = () => {
   const [formInFocus, setFormInFocus] = useState(false);
-  const { register, handleSubmit, formState, resetField } =
-    useForm<CreateTodoParams>();
+  const { register, handleSubmit, resetField } = useForm<CreateTodoParams>();
   const dispatch = useAppDispatch();
   const { id: listid } = useParams();
   const todoFormRef = useRef<HTMLDivElement>(null);
 
   async function createTodoHandler(data: CreateTodoParams) {
-    console.log('hiii');
     try {
       await postTodo(data, listid!);
       await dispatch(fetchTodosThunk(listid!));
       resetField('title');
       resetField('description');
     } catch (error) {
-      console.error(error);
+      console.error(error); // TODO throw error
     }
   }
 
@@ -37,12 +33,7 @@ const TodoItemForm = ({}: ITodoForm) => {
 
   return (
     <div ref={todoFormRef}>
-      <form
-        className="TodoForm"
-        onBlur={(e) => {
-          handleBlur(e);
-        }}
-      >
+      <form className="TodoForm" onBlur={handleBlur}>
         <input
           className={`TodoForm_input ${!formInFocus ? 'hidden' : 'shown'}`}
           id="title"

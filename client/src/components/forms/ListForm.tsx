@@ -6,9 +6,7 @@ import { CreateListParams } from '../../types/List';
 import { AuthContext } from '../../utils/AuthContext';
 import { useAppDispatch } from '../../utils/hooks/redux';
 
-interface IList {}
-
-const ListForm = ({}: IList) => {
+const ListForm = () => {
   const {
     register,
     handleSubmit,
@@ -24,7 +22,7 @@ const ListForm = ({}: IList) => {
       await dispatch(fetchListsThunk(user!.id));
       resetField('title');
     } catch (error) {
-      console.error(error);
+      console.error(error); // TODO throw error
     }
   }
 

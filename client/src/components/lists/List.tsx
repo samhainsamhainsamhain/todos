@@ -1,6 +1,6 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TList } from '../../types/List';
+import { ListType } from '../../types/List';
 import { useAppDispatch } from '../../utils/hooks/redux';
 import {
   deleteListThunk,
@@ -12,9 +12,9 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
 import Textarea from '../ui/Textarea';
 
-interface IList {
-  list: TList;
-}
+type IList = {
+  list: ListType;
+};
 
 const List = ({ list }: IList) => {
   const navigate = useNavigate();
@@ -52,12 +52,12 @@ const List = ({ list }: IList) => {
     <div className="list">
       <Textarea
         isReadOnly={listIsReadOnly}
-        classname={'list_title'}
+        className={'list_title'}
         placeholder={'Title...'}
         value={listTitle}
-        onChangeCallback={setListTitle}
-        onClickCallback={onListClickHandler}
-        onBlurCallback={updateListHandler}
+        onChange={setListTitle}
+        onClick={onListClickHandler}
+        onBlur={updateListHandler}
       />
       <p>Created: {date.toDateString()}</p>
       <div className="list_controls">

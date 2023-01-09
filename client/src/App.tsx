@@ -51,7 +51,7 @@ function App() {
               <Route index element={<Dashboard />}></Route>
               <Route path="/lists">
                 <Route index element={<ListsPage />} />
-                <Route path=":id" element={<TodosPage />} />
+                <Route path=":listid" element={<TodosPage />} />
               </Route>
             </Route>
           </Route>

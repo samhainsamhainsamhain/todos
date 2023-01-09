@@ -11,14 +11,18 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/trash-can.svg';
 import Textarea from '../ui/Textarea';
 
-interface ITodo {
+type ITodo = {
   todo: TodoItem;
-}
+};
+
+type Params = {
+  listid: string;
+};
 
 const Todo = ({ todo }: ITodo) => {
-  const { id: listid } = useParams();
+  const { listid } = useParams<keyof Params>() as Params; // this workaround is necessary because of react-router's useParams hook typings
   const dispatch = useAppDispatch();
-  const { id, title, description, createdAt } = todo;
+  const { id, title, description } = todo;
   const [todoTitle, setTodoTitle] = useState(todo.title);
   const [todoDescription, setTodoDescription] = useState(todo.description);
   const [todoIsReadOnly, setTodoIsReadOnly] = useState(true);
@@ -30,7 +34,7 @@ const Todo = ({ todo }: ITodo) => {
 
   const deleteTodoHandler = async () => {
     await dispatch(deleteTodoThunk({ id, listid: listid! }));
-    dispatch(fetchTodosThunk(listid!));
+    dispatch(fetchTodosThunk(listid));
   };
 
   const updateTodoHandler = async () => {
@@ -42,7 +46,7 @@ const Todo = ({ todo }: ITodo) => {
         id,
         title: todoTitle,
         description: todoDescription,
-        listid: listid!,
+        listid,
       })
     );
 
@@ -56,25 +60,19 @@ const Todo = ({ todo }: ITodo) => {
   };
 
   return (
-    <div
-      className="todo"
-      ref={todoRef}
-      onBlur={(e) => {
-        handleBlur(e);
-      }}
-    >
+    <div className="todo" ref={todoRef} onBlur={handleBlur}>
       <Textarea
-        classname={'todo_title'}
+        className={'todo_title'}
         placeholder={'Title...'}
         value={todoTitle}
-        onChangeCallback={setTodoTitle}
+        onChange={setTodoTitle}
         isReadOnly={todoIsReadOnly}
       />
       <Textarea
-        classname={'todo_description'}
+        className={'todo_description'}
         placeholder={'Description...'}
         value={todoDescription}
-        onChangeCallback={setTodoDescription}
+        onChange={setTodoDescription}
         isReadOnly={todoIsReadOnly}
       />
       <div className="todo_controls">

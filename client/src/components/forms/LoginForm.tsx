@@ -5,9 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { postLoginUser } from '../../api/api';
 import { UserCredentialsParams } from '../../types/User';
 
-interface ILogin {}
-
-const LoginForm = ({}: ILogin) => {
+const LoginForm = () => {
   const {
     register,
     handleSubmit,
@@ -26,7 +24,7 @@ const LoginForm = ({}: ILogin) => {
       if (error instanceof AxiosError) {
         setError(error);
       } else {
-        console.error(error);
+        console.error(error); // TODO throw error
       }
     }
   }

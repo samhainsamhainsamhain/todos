@@ -1,5 +1,6 @@
-import React from 'react';
 import TodosPanel from '../components/todo/TodosPanel';
+
+// TODO add Lists sidebar when todos open
 
 const TodosPage = () => {
   return (

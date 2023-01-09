@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { postRegisterUser } from '../../api/api';
 import { CreateUserParams } from '../../types/User';
 
-interface IRegistration {}
-
-const RegisterForm = ({}: IRegistration) => {
+const RegisterForm = () => {
   const {
     register,
     handleSubmit,

@@ -14,10 +14,10 @@ export class Todos {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column()
+  @Column({ type: 'longtext' })
   title: string;
 
-  @Column({ default: null })
+  @Column({ type: 'longtext', default: null })
   description: string;
 
   @CreateDateColumn({ type: 'timestamp' })

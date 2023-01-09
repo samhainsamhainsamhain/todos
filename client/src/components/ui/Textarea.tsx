@@ -1,25 +1,27 @@
 import React, { useRef, useEffect } from 'react';
 
 interface ITextarea {
-  classname?: string | string[];
+  className?: string | string[];
   isReadOnly?: boolean;
   spellCheck?: boolean;
   value?: string;
   placeholder?: string;
-  onChangeCallback: (e: string) => void;
-  onClickCallback?: () => void;
-  onBlurCallback?: () => void;
+  onChange: (e: string) => void;
+  onClick?: () => void;
+  onBlur?: () => void;
 }
+
+// TODO wait for data download completion before resizing textareas
 
 const Textarea = ({
   isReadOnly = true,
   spellCheck = false,
-  classname,
+  className,
   value,
   placeholder,
-  onChangeCallback,
-  onClickCallback,
-  onBlurCallback,
+  onChange,
+  onClick,
+  onBlur,
 }: ITextarea) => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -36,33 +38,25 @@ const Textarea = ({
   const resizeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const target = e.target as HTMLTextAreaElement;
 
-    e.currentTarget.style.height = '24px';
+    e.currentTarget.style.height = '0px';
     e.currentTarget.style.height = `${target.scrollHeight}px`;
   };
 
   function onChangeHandler(event: React.ChangeEvent<HTMLTextAreaElement>) {
     resizeTextarea(event);
-    onChangeCallback(event.currentTarget.value);
-  }
-
-  function onClickHandler() {
-    onClickCallback && onClickCallback();
-  }
-
-  function onBlurHandler() {
-    onBlurCallback && onBlurCallback();
+    onChange(event.currentTarget.value);
   }
 
   return (
     <textarea
-      className={`${classname} textarea ${!isReadOnly ? 'editable' : ''}`}
+      className={`${className} textarea ${!isReadOnly ? 'editable' : ''}`}
       ref={textareaRef}
       value={value}
       spellCheck={spellCheck}
       placeholder={!isReadOnly ? placeholder : ''}
       onChange={onChangeHandler}
-      onClick={onClickHandler}
-      onBlur={onBlurHandler}
+      onClick={onClick}
+      onBlur={onBlur}
       readOnly={isReadOnly}
     />
   );

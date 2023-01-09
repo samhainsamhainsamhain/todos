@@ -31,20 +31,13 @@
   border: 1px solid #888888;
 
   &_title {
-    background-color: transparent;
-    width: 100%;
-    font-size: 24px;
-    padding: 8px;
-    margin: 0;
-    border: none;
-    outline: none;
-    transition: background-color 0.2s;
+    /* background-color: transparent; */
+    /* font-size: 24px;
     caret-color: transparent;
-    cursor: pointer;
+    cursor: pointer; */
   }
 
   &_description {
-    padding: 8px;
   }
 
   &_controls {

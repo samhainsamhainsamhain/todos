@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTodosThunk } from '../../store/todos/todosThunk';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/redux';
@@ -6,18 +6,16 @@ import TodoForm from '../forms/TodoForm';
 import Todo from './Todo';
 
 const TodosPanel = () => {
-  const { id } = useParams();
+  const { listid } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { lists } = useAppSelector((state) => state.listsSlice);
-  const { todos, isLoading, error } = useAppSelector(
-    (state) => state.todosSlice
-  );
+  const { todos } = useAppSelector((state) => state.todosSlice);
 
-  const list = lists.find((l) => l.id === id);
+  const list = lists.find((list) => list.id === listid);
 
   useEffect(() => {
-    dispatch(fetchTodosThunk(id!));
+    dispatch(fetchTodosThunk(listid!));
   }, []);
 
   useEffect(() => {

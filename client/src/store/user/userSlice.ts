@@ -5,6 +5,8 @@ export interface UserState {
   username: string | null;
 }
 
+// TODO move userContext in redux state
+
 const initialState: UserState = {
   username: null,
 };

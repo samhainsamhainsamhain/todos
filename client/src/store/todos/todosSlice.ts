@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { List } from '../../types/List';
+import { ListType } from '../../types/List';
 import { fetchTodosThunk } from './todosThunk';
 import { TodoItem, TodoItemEventPayload } from '../../types/Todo';
 
@@ -42,13 +42,16 @@ export const todosSlice = createSlice({
   extraReducers: {
     [fetchTodosThunk.fulfilled.type]: (
       state,
-      action: PayloadAction<List[]>
+      action: PayloadAction<ListType[]>
     ) => {
       state.isLoading = false;
       state.error = '';
       state.todos = action.payload;
     },
-    [fetchTodosThunk.pending.type]: (state, action: PayloadAction<List[]>) => {
+    [fetchTodosThunk.pending.type]: (
+      state,
+      action: PayloadAction<ListType[]>
+    ) => {
       state.isLoading = true;
     },
     [fetchTodosThunk.rejected.type]: (state, action: PayloadAction<string>) => {

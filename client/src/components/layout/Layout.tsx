@@ -3,6 +3,8 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../api/api';
 import { AuthContext } from '../../utils/AuthContext';
 
+// TODO move logout functionality in separate component
+
 const Layout = () => {
   const { updateAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
